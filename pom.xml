@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ruoyi</groupId>
-    <artifactId>ruoyi-vue-plus</artifactId>
+    <artifactId>bluett-ssms</artifactId>
     <version>4.6.0</version>
 
     <name>RuoYi-Vue-Plus</name>
@@ -13,7 +13,7 @@
     <description>RuoYi-Vue-Plus后台管理系统</description>
 
     <properties>
-        <ruoyi-vue-plus.version>4.6.0</ruoyi-vue-plus.version>
+        <bluett-ssms.version>4.6.0</bluett-ssms.version>
         <spring-boot.version>2.7.9</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -276,56 +276,56 @@
             <dependency>
                 <groupId>com.ruoyi</groupId>
                 <artifactId>bluett-job</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <version>${bluett-ssms.version}</version>
             </dependency>
 
             <!-- 代码生成-->
             <dependency>
                 <groupId>com.ruoyi</groupId>
                 <artifactId>bluett-generator</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <version>${bluett-ssms.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
                 <groupId>com.ruoyi</groupId>
                 <artifactId>bluett-framework</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <version>${bluett-ssms.version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
                 <groupId>com.ruoyi</groupId>
                 <artifactId>bluett-system</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <version>${bluett-ssms.version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
                 <groupId>com.ruoyi</groupId>
                 <artifactId>bluett-common</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <version>${bluett-ssms.version}</version>
             </dependency>
 
             <!-- OSS对象存储模块 -->
             <dependency>
                 <groupId>com.ruoyi</groupId>
                 <artifactId>bluett-oss</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <version>${bluett-ssms.version}</version>
             </dependency>
 
             <!-- SMS短信模块 -->
             <dependency>
                 <groupId>com.ruoyi</groupId>
                 <artifactId>bluett-sms</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <version>${bluett-ssms.version}</version>
             </dependency>
 
             <!-- demo模块 -->
             <dependency>
                 <groupId>com.ruoyi</groupId>
                 <artifactId>bluett-demo</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <version>${bluett-ssms.version}</version>
             </dependency>
 
         </dependencies>
