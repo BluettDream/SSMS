@@ -275,56 +275,56 @@
             <!-- 定时任务 -->
             <dependency>
                 <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-job</artifactId>
+                <artifactId>bluett-job</artifactId>
                 <version>${ruoyi-vue-plus.version}</version>
             </dependency>
 
             <!-- 代码生成-->
             <dependency>
                 <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-generator</artifactId>
+                <artifactId>bluett-generator</artifactId>
                 <version>${ruoyi-vue-plus.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
                 <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-framework</artifactId>
+                <artifactId>bluett-framework</artifactId>
                 <version>${ruoyi-vue-plus.version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
                 <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-system</artifactId>
+                <artifactId>bluett-system</artifactId>
                 <version>${ruoyi-vue-plus.version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
                 <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common</artifactId>
+                <artifactId>bluett-common</artifactId>
                 <version>${ruoyi-vue-plus.version}</version>
             </dependency>
 
             <!-- OSS对象存储模块 -->
             <dependency>
                 <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-oss</artifactId>
+                <artifactId>bluett-oss</artifactId>
                 <version>${ruoyi-vue-plus.version}</version>
             </dependency>
 
             <!-- SMS短信模块 -->
             <dependency>
                 <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-sms</artifactId>
+                <artifactId>bluett-sms</artifactId>
                 <version>${ruoyi-vue-plus.version}</version>
             </dependency>
 
             <!-- demo模块 -->
             <dependency>
                 <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-demo</artifactId>
+                <artifactId>bluett-demo</artifactId>
                 <version>${ruoyi-vue-plus.version}</version>
             </dependency>
 
@@ -332,16 +332,16 @@
     </dependencyManagement>
 
     <modules>
-        <module>ruoyi-admin</module>
-        <module>ruoyi-framework</module>
-        <module>ruoyi-system</module>
-        <module>ruoyi-job</module>
-        <module>ruoyi-generator</module>
-        <module>ruoyi-common</module>
-        <module>ruoyi-demo</module>
-        <module>ruoyi-extend</module>
-        <module>ruoyi-oss</module>
-        <module>ruoyi-sms</module>
+        <module>bluett-admin</module>
+        <module>bluett-framework</module>
+        <module>bluett-system</module>
+        <module>bluett-job</module>
+        <module>bluett-generator</module>
+        <module>bluett-common</module>
+        <module>bluett-demo</module>
+        <module>bluett-extend</module>
+        <module>bluett-oss</module>
+        <module>bluett-sms</module>
     </modules>
     <packaging>pom</packaging>
 
