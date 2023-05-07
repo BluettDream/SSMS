@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ruoyi</groupId>
-    <artifactId>bluett-ssms</artifactId>
+    <groupId>org.bluett</groupId>
+    <artifactId>ssms</artifactId>
     <version>4.6.0</version>
 
-    <name>RuoYi-Vue-Plus</name>
+    <name>SSMS</name>
     <url>https://gitee.com/dromara/RuoYi-Vue-Plus</url>
-    <description>RuoYi-Vue-Plus后台管理系统</description>
+    <description>SSMS学生成绩管理系统</description>
 
     <properties>
-        <bluett-ssms.version>4.6.0</bluett-ssms.version>
+        <ssms.version>4.6.0</ssms.version>
         <spring-boot.version>2.7.9</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -274,58 +274,58 @@
 
             <!-- 定时任务 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
+                <groupId>org.bluett</groupId>
                 <artifactId>bluett-job</artifactId>
-                <version>${bluett-ssms.version}</version>
+                <version>${ssms.version}</version>
             </dependency>
 
             <!-- 代码生成-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
+                <groupId>org.bluett</groupId>
                 <artifactId>bluett-generator</artifactId>
-                <version>${bluett-ssms.version}</version>
+                <version>${ssms.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
+                <groupId>org.bluett</groupId>
                 <artifactId>bluett-framework</artifactId>
-                <version>${bluett-ssms.version}</version>
+                <version>${ssms.version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
+                <groupId>org.bluett</groupId>
                 <artifactId>bluett-system</artifactId>
-                <version>${bluett-ssms.version}</version>
+                <version>${ssms.version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
+                <groupId>org.bluett</groupId>
                 <artifactId>bluett-common</artifactId>
-                <version>${bluett-ssms.version}</version>
+                <version>${ssms.version}</version>
             </dependency>
 
             <!-- OSS对象存储模块 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
+                <groupId>org.bluett</groupId>
                 <artifactId>bluett-oss</artifactId>
-                <version>${bluett-ssms.version}</version>
+                <version>${ssms.version}</version>
             </dependency>
 
             <!-- SMS短信模块 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
+                <groupId>org.bluett</groupId>
                 <artifactId>bluett-sms</artifactId>
-                <version>${bluett-ssms.version}</version>
+                <version>${ssms.version}</version>
             </dependency>
 
             <!-- demo模块 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
+                <groupId>org.bluett</groupId>
                 <artifactId>bluett-demo</artifactId>
-                <version>${bluett-ssms.version}</version>
+                <version>${ssms.version}</version>
             </dependency>
 
         </dependencies>

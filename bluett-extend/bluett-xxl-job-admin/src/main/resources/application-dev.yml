@@ -16,7 +16,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/bluett-dream?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: root
-    password: TTT
+    password: TT
     hikari:
       auto-commit: true
       connection-test-query: SELECT 1

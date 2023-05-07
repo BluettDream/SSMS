@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>bluett-ssms</artifactId>
-        <groupId>com.ruoyi</groupId>
+        <artifactId>ssms</artifactId>
+        <groupId>org.bluett</groupId>
         <version>4.6.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -47,34 +47,34 @@
 
         <!-- 核心模块-->
         <dependency>
-            <groupId>com.ruoyi</groupId>
+            <groupId>org.bluett</groupId>
             <artifactId>bluett-framework</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.ruoyi</groupId>
+            <groupId>org.bluett</groupId>
             <artifactId>bluett-system</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.ruoyi</groupId>
+            <groupId>org.bluett</groupId>
             <artifactId>bluett-job</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.ruoyi</groupId>
+            <groupId>org.bluett</groupId>
             <artifactId>bluett-oss</artifactId>
         </dependency>
 
         <!-- 代码生成-->
         <dependency>
-            <groupId>com.ruoyi</groupId>
+            <groupId>org.bluett</groupId>
             <artifactId>bluett-generator</artifactId>
         </dependency>
 
         <!--  demo模块  -->
         <dependency>
-            <groupId>com.ruoyi</groupId>
+            <groupId>org.bluett</groupId>
             <artifactId>bluett-demo</artifactId>
         </dependency>
 

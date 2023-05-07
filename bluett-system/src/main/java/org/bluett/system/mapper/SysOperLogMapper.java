@@ -1,0 +1,13 @@
+package org.bluett.system.mapper;
+
+import org.bluett.common.core.mapper.BaseMapperPlus;
+import org.bluett.system.domain.SysOperLog;
+
+/**
+ * 操作日志 数据层
+ *
+ * @author Lion Li
+ */
+public interface SysOperLogMapper extends BaseMapperPlus<SysOperLogMapper, SysOperLog, SysOperLog> {
+
+}

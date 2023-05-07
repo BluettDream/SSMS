@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>bluett-extend</artifactId>
-        <groupId>com.ruoyi</groupId>
+        <groupId>org.bluett</groupId>
         <version>4.6.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
