@@ -2,6 +2,10 @@ package org.bluett.ssms.domain.bo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.bluett.common.core.domain.BaseEntity;
+import org.bluett.common.core.validate.AddGroup;
+import org.bluett.common.core.validate.EditGroup;
+
 import javax.validation.constraints.*;
 
 

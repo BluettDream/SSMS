@@ -71,11 +71,7 @@ public class ScoreServiceImpl implements IScoreService {
     public Boolean insertByBo(ScoreBo bo) {
         Score add = BeanUtil.toBean(bo, Score.class);
         validEntityBeforeSave(add);
-        boolean flag = baseMapper.insert(add) > 0;
-        if (flag) {
-            bo.setScoreId(add.getScoreId());
-        }
-        return flag;
+        return baseMapper.insert(add) > 0;
     }
 
     /**

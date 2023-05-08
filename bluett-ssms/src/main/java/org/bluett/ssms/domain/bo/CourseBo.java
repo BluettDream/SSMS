@@ -6,6 +6,9 @@ import javax.validation.constraints.*;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.bluett.common.core.domain.BaseEntity;
+import org.bluett.common.core.validate.AddGroup;
+import org.bluett.common.core.validate.EditGroup;
 
 /**
  * 课程信息业务对象 ssms_course

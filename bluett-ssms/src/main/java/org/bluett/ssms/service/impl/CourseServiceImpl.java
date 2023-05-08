@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
+import org.bluett.common.utils.StringUtils;
 import org.springframework.stereotype.Service;
 import org.bluett.ssms.domain.bo.CourseBo;
 import org.bluett.ssms.domain.vo.CourseVo;
@@ -74,11 +75,7 @@ public class CourseServiceImpl implements ICourseService {
     public Boolean insertByBo(CourseBo bo) {
         Course add = BeanUtil.toBean(bo, Course.class);
         validEntityBeforeSave(add);
-        boolean flag = baseMapper.insert(add) > 0;
-        if (flag) {
-            bo.setCourseId(add.getCourseId());
-        }
-        return flag;
+        return baseMapper.insert(add) > 0;
     }
 
     /**

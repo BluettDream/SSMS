@@ -3,6 +3,7 @@ package org.bluett.ssms.domain;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.bluett.common.core.domain.BaseEntity;
 
 
 /**

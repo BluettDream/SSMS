@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.bluett.common.core.domain.BaseEntity;
 
 /**
  * 课程信息对象 ssms_course
