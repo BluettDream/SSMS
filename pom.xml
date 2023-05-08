@@ -342,6 +342,7 @@
         <module>bluett-extend</module>
         <module>bluett-oss</module>
         <module>bluett-sms</module>
+        <module>bluett-ssms</module>
     </modules>
     <packaging>pom</packaging>
 
