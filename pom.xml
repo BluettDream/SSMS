@@ -328,6 +328,13 @@
                 <version>${ssms.version}</version>
             </dependency>
 
+            <!-- ssms模块 -->
+            <dependency>
+                <groupId>org.bluett</groupId>
+                <artifactId>bluett-ssms</artifactId>
+                <version>${ssms.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

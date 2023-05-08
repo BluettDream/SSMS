@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Arrays;
 
 import lombok.RequiredArgsConstructor;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.*;
+
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
@@ -65,7 +67,7 @@ public class CourseController extends BaseController {
     @SaCheckPermission("ssms:course:query")
     @GetMapping("/{courseId}")
     public R<CourseVo> getInfo(@NotNull(message = "主键不能为空")
-                                     @PathVariable Long courseId) {
+                               @PathVariable Long courseId) {
         return R.ok(iCourseService.queryById(courseId));
     }
 
