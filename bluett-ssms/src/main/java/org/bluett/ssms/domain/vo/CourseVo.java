@@ -22,6 +22,24 @@ public class CourseVo {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 课程ID
+     */
+    @ExcelProperty(value = "课程ID")
+    private Long courseId;
+
+    /**
+     * 用户名称(教师编号)
+     */
+    @ExcelProperty(value = "用户名称(教师编号)")
+    private String userName;
+
+    /**
+     * 用户姓名(教师姓名)
+     */
+    @ExcelProperty(value = "教师姓名")
+    private String nickName;
+
+    /**
      * 课程名称
      */
     @ExcelProperty(value = "课程名称")

@@ -4,11 +4,10 @@ import java.util.List;
 import java.util.Arrays;
 
 import lombok.RequiredArgsConstructor;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.*;
-
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import org.bluett.system.service.ISysUserService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.bluett.common.annotation.RepeatSubmit;
@@ -38,6 +37,7 @@ import org.bluett.common.core.page.TableDataInfo;
 public class CourseController extends BaseController {
 
     private final ICourseService iCourseService;
+    private final ISysUserService iSysUserService;
 
     /**
      * 查询课程信息列表
@@ -45,7 +45,12 @@ public class CourseController extends BaseController {
     @SaCheckPermission("ssms:course:list")
     @GetMapping("/list")
     public TableDataInfo<CourseVo> list(CourseBo bo, PageQuery pageQuery) {
-        return iCourseService.queryPageList(bo, pageQuery);
+        TableDataInfo<CourseVo> courseVoTableDataInfo = iCourseService.queryPageList(bo, pageQuery);
+        List<CourseVo> records = courseVoTableDataInfo.getRows();
+        for (CourseVo record : records) {
+            record.setNickName(iSysUserService.selectUserByUserName(record.getUserName()).getNickName());
+        }
+        return courseVoTableDataInfo;
     }
 
     /**
@@ -67,7 +72,7 @@ public class CourseController extends BaseController {
     @SaCheckPermission("ssms:course:query")
     @GetMapping("/{courseId}")
     public R<CourseVo> getInfo(@NotNull(message = "主键不能为空")
-                               @PathVariable Long courseId) {
+                                     @PathVariable Long courseId) {
         return R.ok(iCourseService.queryById(courseId));
     }
 

@@ -22,6 +22,18 @@ import org.bluett.common.core.validate.EditGroup;
 public class CourseBo extends BaseEntity {
 
     /**
+     * 课程ID
+     */
+    @NotNull(message = "课程ID不能为空", groups = { EditGroup.class })
+    private Long courseId;
+
+    /**
+     * 用户名称(教师编号)
+     */
+    @NotBlank(message = "用户名称(教师编号)不能为空", groups = { AddGroup.class, EditGroup.class })
+    private String userName;
+
+    /**
      * 课程名称
      */
     @NotBlank(message = "课程名称不能为空", groups = { AddGroup.class, EditGroup.class })

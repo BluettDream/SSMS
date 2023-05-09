@@ -1,5 +1,6 @@
 package org.bluett.ssms.service.impl;
 
+import ch.qos.logback.core.encoder.LayoutWrappingEncoder;
 import cn.hutool.core.bean.BeanUtil;
 import org.bluett.common.core.page.TableDataInfo;
 import org.bluett.common.core.domain.PageQuery;
@@ -36,7 +37,7 @@ public class CourseServiceImpl implements ICourseService {
      */
     @Override
     public CourseVo queryById(Long courseId){
-        return baseMapper.selectVoById(courseId);
+        return baseMapper.selectCourseVoById(courseId);
     }
 
     /**
@@ -44,8 +45,8 @@ public class CourseServiceImpl implements ICourseService {
      */
     @Override
     public TableDataInfo<CourseVo> queryPageList(CourseBo bo, PageQuery pageQuery) {
-        LambdaQueryWrapper<Course> lqw = buildQueryWrapper(bo);
-        Page<CourseVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
+        LambdaQueryWrapper<CourseVo> lqw = buildQueryWrapper(bo);
+        Page<CourseVo> result = baseMapper.selectCourseVoPage(pageQuery.build(), lqw);
         return TableDataInfo.build(result);
     }
 
@@ -54,17 +55,19 @@ public class CourseServiceImpl implements ICourseService {
      */
     @Override
     public List<CourseVo> queryList(CourseBo bo) {
-        LambdaQueryWrapper<Course> lqw = buildQueryWrapper(bo);
-        return baseMapper.selectVoList(lqw);
+        LambdaQueryWrapper<CourseVo> lqw = buildQueryWrapper(bo);
+        return baseMapper.selectCourseVoList(lqw);
     }
 
-    private LambdaQueryWrapper<Course> buildQueryWrapper(CourseBo bo) {
+    private LambdaQueryWrapper<CourseVo> buildQueryWrapper(CourseBo bo) {
         Map<String, Object> params = bo.getParams();
-        LambdaQueryWrapper<Course> lqw = Wrappers.lambdaQuery();
-        lqw.like(StringUtils.isNotBlank(bo.getCourseName()), Course::getCourseName, bo.getCourseName());
-        lqw.eq(bo.getCredit() != null, Course::getCredit, bo.getCredit());
-        lqw.eq(bo.getStartTime() != null, Course::getStartTime, bo.getStartTime());
-        lqw.eq(bo.getFinishTime() != null, Course::getFinishTime, bo.getFinishTime());
+        LambdaQueryWrapper<CourseVo> lqw = Wrappers.lambdaQuery();
+        lqw.like(params.get("nickName") != null, CourseVo::getNickName, params.get("nickName"));
+        lqw.eq(StringUtils.isNotBlank(bo.getUserName()), CourseVo::getUserName, bo.getUserName());
+        lqw.like(StringUtils.isNotBlank(bo.getCourseName()), CourseVo::getCourseName, bo.getCourseName());
+        lqw.eq(bo.getCredit() != null, CourseVo::getCredit, bo.getCredit());
+        lqw.eq(bo.getStartTime() != null, CourseVo::getStartTime, bo.getStartTime());
+        lqw.eq(bo.getFinishTime() != null, CourseVo::getFinishTime, bo.getFinishTime());
         return lqw;
     }
 
@@ -75,7 +78,11 @@ public class CourseServiceImpl implements ICourseService {
     public Boolean insertByBo(CourseBo bo) {
         Course add = BeanUtil.toBean(bo, Course.class);
         validEntityBeforeSave(add);
-        return baseMapper.insert(add) > 0;
+        boolean flag = baseMapper.insert(add) > 0;
+        if (flag) {
+            bo.setCourseId(add.getCourseId());
+        }
+        return flag;
     }
 
     /**
