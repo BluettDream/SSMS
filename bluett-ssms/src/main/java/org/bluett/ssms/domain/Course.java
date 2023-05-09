@@ -24,7 +24,7 @@ public class Course extends BaseEntity {
     /**
      * 课程ID
      */
-    @TableId(value = "course_id")
+    @TableId(value = "course_id", type = IdType.AUTO)
     private Long courseId;
     /**
      * 用户名称(教师编号)
