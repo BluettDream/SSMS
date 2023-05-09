@@ -7,6 +7,7 @@ import org.bluett.common.core.validate.AddGroup;
 import org.bluett.common.core.validate.EditGroup;
 
 import javax.validation.constraints.*;
+import java.util.Date;
 
 
 /**
@@ -21,10 +22,57 @@ import javax.validation.constraints.*;
 public class ScoreBo extends BaseEntity {
 
     /**
+     * 分数ID
+     */
+    @NotNull(message = "分数ID不能为空", groups = { EditGroup.class })
+    private Long scoreId;
+
+    /**
+     * 学生编号
+     */
+    @NotNull(message = "学生编号不能为空", groups = { AddGroup.class, EditGroup.class })
+    private String userName;
+
+    /**
+     * 学生姓名
+     */
+    private String nickName;
+
+    /**
+     * 课程编号
+     */
+    @NotNull(message = "课程编号不能为空", groups = { AddGroup.class, EditGroup.class })
+    private Long courseId;
+
+    /**
+     * 课程名称
+     */
+    private String courseName;
+
+    /**
+     * 教师姓名
+     */
+    private String teacherNickName;
+
+    /**
+     * 开始日期
+     */
+    private Date startTime;
+
+    /**
+     * 结束日期
+     */
+    private Date finishTime;
+
+    /**
+     * 学分
+     */
+    private Double credit;
+
+    /**
      * 分数
      */
     @NotNull(message = "分数不能为空", groups = { AddGroup.class, EditGroup.class })
-    private Long score;
-
+    private Double score;
 
 }

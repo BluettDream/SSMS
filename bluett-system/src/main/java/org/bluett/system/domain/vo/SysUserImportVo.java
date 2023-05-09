@@ -35,7 +35,7 @@ public class SysUserImportVo implements Serializable {
     /**
      * 用户账号
      */
-    @ExcelProperty(value = "登录名称")
+    @ExcelProperty(value = "登录名称/用户编号")
     private String userName;
 
     /**

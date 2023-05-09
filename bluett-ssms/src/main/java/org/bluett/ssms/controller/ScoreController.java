@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import org.bluett.common.helper.DataPermissionHelper;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.bluett.common.annotation.RepeatSubmit;
@@ -43,6 +44,7 @@ public class ScoreController extends BaseController {
     @SaCheckPermission("ssms:score:list")
     @GetMapping("/list")
     public TableDataInfo<ScoreVo> list(ScoreBo bo, PageQuery pageQuery) {
+        DataPermissionHelper.setVariable("userNameValue", getUsername());
         return iScoreService.queryPageList(bo, pageQuery);
     }
 
@@ -66,6 +68,7 @@ public class ScoreController extends BaseController {
     @GetMapping("/{scoreId}")
     public R<ScoreVo> getInfo(@NotNull(message = "主键不能为空")
                                      @PathVariable Long scoreId) {
+        DataPermissionHelper.setVariable("userNameValue", getUsername());
         return R.ok(iScoreService.queryById(scoreId));
     }
 
@@ -77,6 +80,7 @@ public class ScoreController extends BaseController {
     @RepeatSubmit()
     @PostMapping()
     public R<Void> add(@Validated(AddGroup.class) @RequestBody ScoreBo bo) {
+        DataPermissionHelper.setVariable("userNameValue", getUsername());
         return toAjax(iScoreService.insertByBo(bo));
     }
 
@@ -88,6 +92,7 @@ public class ScoreController extends BaseController {
     @RepeatSubmit()
     @PutMapping()
     public R<Void> edit(@Validated(EditGroup.class) @RequestBody ScoreBo bo) {
+        DataPermissionHelper.setVariable("userNameValue", getUsername());
         return toAjax(iScoreService.updateByBo(bo));
     }
 
@@ -101,6 +106,7 @@ public class ScoreController extends BaseController {
     @DeleteMapping("/{scoreIds}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空")
                           @PathVariable Long[] scoreIds) {
+        DataPermissionHelper.setVariable("userNameValue", getUsername());
         return toAjax(iScoreService.deleteWithValidByIds(Arrays.asList(scoreIds), true));
     }
 }

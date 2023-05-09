@@ -1,18 +1,23 @@
 package org.bluett.ssms.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.bluett.common.core.page.TableDataInfo;
 import org.bluett.common.core.domain.PageQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
+import org.bluett.common.utils.StringUtils;
+import org.bluett.ssms.domain.ScoreCourseUser;
+import org.bluett.ssms.mapper.ScoreCourseUserMapper;
 import org.springframework.stereotype.Service;
 import org.bluett.ssms.domain.bo.ScoreBo;
 import org.bluett.ssms.domain.vo.ScoreVo;
 import org.bluett.ssms.domain.Score;
 import org.bluett.ssms.mapper.ScoreMapper;
 import org.bluett.ssms.service.IScoreService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -29,13 +34,14 @@ import java.util.Collection;
 public class ScoreServiceImpl implements IScoreService {
 
     private final ScoreMapper baseMapper;
+    private final ScoreCourseUserMapper scoreCourseUserMapper;
 
     /**
      * 查询分数信息
      */
     @Override
     public ScoreVo queryById(Long scoreId){
-        return baseMapper.selectVoById(scoreId);
+        return baseMapper.selectScoreVoById(scoreId);
     }
 
     /**
@@ -43,8 +49,8 @@ public class ScoreServiceImpl implements IScoreService {
      */
     @Override
     public TableDataInfo<ScoreVo> queryPageList(ScoreBo bo, PageQuery pageQuery) {
-        LambdaQueryWrapper<Score> lqw = buildQueryWrapper(bo);
-        Page<ScoreVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
+        QueryWrapper<ScoreVo> qw = buildQueryWrapper(bo);
+        Page<ScoreVo> result = baseMapper.selectScoreVoPage(pageQuery.build(), qw);
         return TableDataInfo.build(result);
     }
 
@@ -53,25 +59,38 @@ public class ScoreServiceImpl implements IScoreService {
      */
     @Override
     public List<ScoreVo> queryList(ScoreBo bo) {
-        LambdaQueryWrapper<Score> lqw = buildQueryWrapper(bo);
-        return baseMapper.selectVoList(lqw);
+        QueryWrapper<ScoreVo> qw = buildQueryWrapper(bo);
+        return baseMapper.selectScoreVoList(qw);
     }
 
-    private LambdaQueryWrapper<Score> buildQueryWrapper(ScoreBo bo) {
+    private QueryWrapper<ScoreVo> buildQueryWrapper(ScoreBo bo) {
         Map<String, Object> params = bo.getParams();
-        LambdaQueryWrapper<Score> lqw = Wrappers.lambdaQuery();
-        lqw.eq(bo.getScore() != null, Score::getScore, bo.getScore());
-        return lqw;
+        QueryWrapper<ScoreVo> qw = Wrappers.query();
+        qw.eq("s.del_flag", "0");
+        qw.like(StringUtils.isNotBlank(bo.getCourseName()),"c.course_name", bo.getCourseName());
+        qw.eq(StringUtils.isNotBlank(bo.getUserName()),"u.user_name", bo.getUserName());
+        qw.like(StringUtils.isNotBlank(bo.getNickName()),"u.nick_name", bo.getNickName());
+        qw.eq(bo.getScore() != null,"s.score", bo.getScore());
+        qw.eq(bo.getStartTime() != null,"c.start_time", bo.getStartTime());
+        qw.eq(bo.getFinishTime() != null,"c.finish_time", bo.getFinishTime());
+        return qw;
     }
 
     /**
      * 新增分数信息
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean insertByBo(ScoreBo bo) {
-        Score add = BeanUtil.toBean(bo, Score.class);
-        validEntityBeforeSave(add);
-        return baseMapper.insert(add) > 0;
+        Score addScore = BeanUtil.toBean(bo, Score.class);
+        validEntityBeforeSave(addScore);
+        boolean flag = baseMapper.insert(addScore) > 0;
+        if(flag){
+            bo.setScoreId(addScore.getScoreId());
+            ScoreCourseUser addScoreCourseUser = BeanUtil.toBean(bo, ScoreCourseUser.class);
+            flag = scoreCourseUserMapper.insert(addScoreCourseUser) > 0;
+        }
+        return flag;
     }
 
     /**
@@ -79,9 +98,10 @@ public class ScoreServiceImpl implements IScoreService {
      */
     @Override
     public Boolean updateByBo(ScoreBo bo) {
-        Score update = BeanUtil.toBean(bo, Score.class);
-        validEntityBeforeSave(update);
-        return baseMapper.updateById(update) > 0;
+        Score updScore = BeanUtil.toBean(bo, Score.class);
+        validEntityBeforeSave(updScore);
+        ScoreCourseUser scoreCourseUser = BeanUtil.toBean(bo, ScoreCourseUser.class);
+        return baseMapper.updateById(updScore) > 0 && scoreCourseUserMapper.updateById(scoreCourseUser) > 0;
     }
 
     /**

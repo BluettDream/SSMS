@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.bluett.ssms.mapper.ScoreMapper">
 
     <resultMap type="org.bluett.ssms.domain.Score" id="ScoreResult">
@@ -13,6 +13,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+
+    <sql id="selectScoreVo">
+        select u.user_name,
+               u.nick_name,
+               c.course_id,
+               c.course_name,
+               c.start_time,
+               c.finish_time,
+               c.credit,
+               s.score_id,
+               s.score
+        from sys_user u
+                 inner join ssms_score_course_user scu on u.user_name = scu.user_name
+                 inner join ssms_course c on c.course_id = scu.course_id
+                 inner join ssms_score s on s.score_id = scu.score_id
+    </sql>
+
+    <select id="selectScoreVoById" resultType="org.bluett.ssms.domain.vo.ScoreVo">
+        <include refid="selectScoreVo"/>
+        and s.score_id = #{id}
+    </select>
+    <select id="selectScoreVoPage" resultType="org.bluett.ssms.domain.vo.ScoreVo">
+        <include refid="selectScoreVo"/>
+        ${ew.customSqlSegment}
+    </select>
+    <select id="selectScoreVoList" resultType="org.bluett.ssms.domain.vo.ScoreVo">
+        <include refid="selectScoreVo"/>
+        ${ew.customSqlSegment}
+    </select>
 
 
 </mapper>

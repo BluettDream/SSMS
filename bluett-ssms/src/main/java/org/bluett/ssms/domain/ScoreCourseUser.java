@@ -7,31 +7,29 @@ import org.bluett.common.core.domain.BaseEntity;
 
 
 /**
- * 分数信息对象 ssms_score
+ * 分数课程用户关联对象 ssms_score_course_user
  *
  * @author bluett
- * @date 2023-05-08
+ * @date 2023-05-09
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("ssms_score")
-public class Score extends BaseEntity {
+@TableName("ssms_score_course_user")
+public class ScoreCourseUser {
 
     private static final long serialVersionUID=1L;
 
     /**
      * 分数ID
      */
-    @TableId(value = "score_id", type = IdType.AUTO)
+    @TableId(value = "score_id", type = IdType.INPUT)
     private Long scoreId;
     /**
-     * 分数
+     * 课程ID
      */
-    private Double score;
+    private Long courseId;
     /**
-     * 删除标志(0代表存在,2代表删除)
+     * 学生编号
      */
-    @TableLogic
-    private String delFlag;
+    private String userName;
 
 }
