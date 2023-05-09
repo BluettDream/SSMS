@@ -45,7 +45,12 @@ public enum DataScopeType {
     /**
      * 仅本人数据权限
      */
-    SELF("5", " #{#userName} = #{#user.userId} ", " 1 = 0 ");
+    SELF("5", " #{#userName} = #{#user.userId} ", " 1 = 0 "),
+
+    /**
+     * 仅本人课程数据权限
+     */
+    SELF_COURSE("6", " #{#userNameKey} = #{#userNameValue} ", " 1 = 0 ");
 
     private final String code;
 

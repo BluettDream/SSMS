@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import org.bluett.system.service.ISysUserService;
+import org.bluett.common.helper.DataPermissionHelper;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.bluett.common.annotation.RepeatSubmit;
@@ -37,7 +37,6 @@ import org.bluett.common.core.page.TableDataInfo;
 public class CourseController extends BaseController {
 
     private final ICourseService iCourseService;
-    private final ISysUserService iSysUserService;
 
     /**
      * 查询课程信息列表
@@ -45,6 +44,7 @@ public class CourseController extends BaseController {
     @SaCheckPermission("ssms:course:list")
     @GetMapping("/list")
     public TableDataInfo<CourseVo> list(CourseBo bo, PageQuery pageQuery) {
+        DataPermissionHelper.setVariable("userNameValue", getUsername());
         return iCourseService.queryPageList(bo, pageQuery);
     }
 
@@ -68,6 +68,7 @@ public class CourseController extends BaseController {
     @GetMapping("/{courseId}")
     public R<CourseVo> getInfo(@NotNull(message = "主键不能为空")
                                      @PathVariable Long courseId) {
+        DataPermissionHelper.setVariable("userNameValue", getUsername());
         return R.ok(iCourseService.queryById(courseId));
     }
 
@@ -79,6 +80,7 @@ public class CourseController extends BaseController {
     @RepeatSubmit()
     @PostMapping()
     public R<Void> add(@Validated(AddGroup.class) @RequestBody CourseBo bo) {
+        DataPermissionHelper.setVariable("userNameValue", getUsername());
         return toAjax(iCourseService.insertByBo(bo));
     }
 
@@ -90,6 +92,7 @@ public class CourseController extends BaseController {
     @RepeatSubmit()
     @PutMapping()
     public R<Void> edit(@Validated(EditGroup.class) @RequestBody CourseBo bo) {
+        DataPermissionHelper.setVariable("userNameValue", getUsername());
         return toAjax(iCourseService.updateByBo(bo));
     }
 
@@ -103,6 +106,7 @@ public class CourseController extends BaseController {
     @DeleteMapping("/{courseIds}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空")
                           @PathVariable Long[] courseIds) {
+        DataPermissionHelper.setVariable("userNameValue", getUsername());
         return toAjax(iCourseService.deleteWithValidByIds(Arrays.asList(courseIds), true));
     }
 }

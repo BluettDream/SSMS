@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
+import org.bluett.common.annotation.DataColumn;
+import org.bluett.common.annotation.DataPermission;
 import org.bluett.common.core.domain.entity.SysUser;
 import org.bluett.ssms.domain.Course;
 import org.bluett.ssms.domain.vo.CourseVo;
@@ -18,6 +20,9 @@ import java.util.List;
  * @author bluett
  * @date 2023-05-08
  */
+@DataPermission({
+    @DataColumn(key = "userNameKey", value = "c.user_name")
+})
 public interface CourseMapper extends BaseMapperPlus<CourseMapper, Course, CourseVo> {
 
     /**
