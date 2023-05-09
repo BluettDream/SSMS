@@ -32,11 +32,11 @@
 
     <select id="selectCourseVoPage" resultType="org.bluett.ssms.domain.vo.CourseVo">
         <include refid="selectCourseVo"/>
-        where c.del_flag = '0' ${ew.customSqlSegment}
+        ${ew.customSqlSegment}
     </select>
     <select id="selectCourseVoList" resultType="org.bluett.ssms.domain.vo.CourseVo">
         <include refid="selectCourseVo"/>
-        where c.del_flag = '0' ${ew.customSqlSegment}
+        ${ew.customSqlSegment}
     </select>
     <select id="selectCourseVoById" resultType="org.bluett.ssms.domain.vo.CourseVo">
         <include refid="selectCourseVo"/>

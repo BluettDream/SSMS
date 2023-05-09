@@ -57,5 +57,8 @@ public class CourseBo extends BaseEntity {
     @NotNull(message = "结束日期不能为空", groups = { AddGroup.class, EditGroup.class })
     private Date finishTime;
 
-
+    /**
+     * 教师姓名
+     */
+    private String nickName;
 }

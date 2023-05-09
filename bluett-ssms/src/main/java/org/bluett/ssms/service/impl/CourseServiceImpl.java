@@ -2,6 +2,10 @@ package org.bluett.ssms.service.impl;
 
 import ch.qos.logback.core.encoder.LayoutWrappingEncoder;
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import org.apache.ibatis.builder.MapperBuilderAssistant;
 import org.bluett.common.core.page.TableDataInfo;
 import org.bluett.common.core.domain.PageQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -45,7 +49,7 @@ public class CourseServiceImpl implements ICourseService {
      */
     @Override
     public TableDataInfo<CourseVo> queryPageList(CourseBo bo, PageQuery pageQuery) {
-        LambdaQueryWrapper<CourseVo> lqw = buildQueryWrapper(bo);
+        QueryWrapper<CourseVo> lqw = buildQueryWrapper(bo);
         Page<CourseVo> result = baseMapper.selectCourseVoPage(pageQuery.build(), lqw);
         return TableDataInfo.build(result);
     }
@@ -55,20 +59,21 @@ public class CourseServiceImpl implements ICourseService {
      */
     @Override
     public List<CourseVo> queryList(CourseBo bo) {
-        LambdaQueryWrapper<CourseVo> lqw = buildQueryWrapper(bo);
+        QueryWrapper<CourseVo> lqw = buildQueryWrapper(bo);
         return baseMapper.selectCourseVoList(lqw);
     }
 
-    private LambdaQueryWrapper<CourseVo> buildQueryWrapper(CourseBo bo) {
+    private QueryWrapper<CourseVo> buildQueryWrapper(CourseBo bo) {
         Map<String, Object> params = bo.getParams();
-        LambdaQueryWrapper<CourseVo> lqw = Wrappers.lambdaQuery();
-        lqw.like(params.get("nickName") != null, CourseVo::getNickName, params.get("nickName"));
-        lqw.eq(StringUtils.isNotBlank(bo.getUserName()), CourseVo::getUserName, bo.getUserName());
-        lqw.like(StringUtils.isNotBlank(bo.getCourseName()), CourseVo::getCourseName, bo.getCourseName());
-        lqw.eq(bo.getCredit() != null, CourseVo::getCredit, bo.getCredit());
-        lqw.eq(bo.getStartTime() != null, CourseVo::getStartTime, bo.getStartTime());
-        lqw.eq(bo.getFinishTime() != null, CourseVo::getFinishTime, bo.getFinishTime());
-        return lqw;
+        QueryWrapper<CourseVo> qw = Wrappers.query();
+        qw.eq("c.del_flag", "0");
+        qw.like(StringUtils.isNotBlank(bo.getUserName()), "u.user_name", bo.getUserName());
+        qw.like(StringUtils.isNotBlank(bo.getCourseName()), "c.course_name", bo.getCourseName());
+        qw.eq(bo.getCredit() != null, "c.credit", bo.getCredit());
+        qw.eq(bo.getStartTime() != null, "c.start_time", bo.getStartTime());
+        qw.eq(bo.getFinishTime() != null, "c.finish_time", bo.getFinishTime());
+        qw.like(StringUtils.isNotBlank(bo.getNickName()), "u.nick_name", bo.getNickName());
+        return qw;
     }
 
     /**

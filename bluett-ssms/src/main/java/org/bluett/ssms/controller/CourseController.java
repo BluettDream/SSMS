@@ -45,12 +45,7 @@ public class CourseController extends BaseController {
     @SaCheckPermission("ssms:course:list")
     @GetMapping("/list")
     public TableDataInfo<CourseVo> list(CourseBo bo, PageQuery pageQuery) {
-        TableDataInfo<CourseVo> courseVoTableDataInfo = iCourseService.queryPageList(bo, pageQuery);
-        List<CourseVo> records = courseVoTableDataInfo.getRows();
-        for (CourseVo record : records) {
-            record.setNickName(iSysUserService.selectUserByUserName(record.getUserName()).getNickName());
-        }
-        return courseVoTableDataInfo;
+        return iCourseService.queryPageList(bo, pageQuery);
     }
 
     /**
