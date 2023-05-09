@@ -37,7 +37,7 @@ public class Course extends BaseEntity {
     /**
      * 学分
      */
-    private Long credit;
+    private Double credit;
     /**
      * 开始日期
      */
