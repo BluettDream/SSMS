@@ -16,6 +16,7 @@ import org.bluett.common.core.domain.model.XcxLoginUser;
 import org.bluett.common.enums.DeviceType;
 import org.bluett.common.enums.LoginType;
 import org.bluett.common.enums.UserStatus;
+import org.bluett.common.exception.file.FileException;
 import org.bluett.common.exception.user.CaptchaException;
 import org.bluett.common.exception.user.CaptchaExpireException;
 import org.bluett.common.exception.user.UserException;
@@ -26,13 +27,16 @@ import org.bluett.common.utils.ServletUtils;
 import org.bluett.common.utils.StringUtils;
 import org.bluett.common.utils.redis.RedisUtils;
 import org.bluett.common.utils.spring.SpringUtils;
+import org.bluett.ssms.service.FaceService;
 import org.bluett.system.mapper.SysUserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.function.Supplier;
@@ -50,12 +54,16 @@ public class SysLoginService {
     private final SysUserMapper userMapper;
     private final ISysConfigService configService;
     private final SysPermissionService permissionService;
+    private final FaceService faceService;
 
     @Value("${user.password.maxRetryCount}")
     private Integer maxRetryCount;
 
     @Value("${user.password.lockTime}")
     private Integer lockTime;
+
+    @Value("${user.login.face.url}")
+    private String faceUrl;
 
     /**
      * 登录验证
@@ -85,6 +93,29 @@ public class SysLoginService {
         return StpUtil.getTokenValue();
     }
 
+    public String faceLogin(MultipartFile file){
+        byte[] bytes;
+        try {
+            bytes = file.getBytes();
+        } catch (IOException e) {
+            throw new RuntimeException("文件转换失败");
+        }
+        Long userId = faceService.faceRecognition(faceUrl, bytes);
+        if(userId == -1L) {
+            throw new UserException("人脸校验失败,请在环境良好的情况下重试");
+        }
+        SysUser user = userMapper.selectById(userId);
+        checkLogin(LoginType.FACE, user.getUserName(), () -> false);
+        // 此处可根据登录用户的数据不同 自行创建 loginUser
+        LoginUser loginUser = buildLoginUser(user);
+        // 生成token
+        LoginHelper.loginByDevice(loginUser, DeviceType.PC);
+
+        recordLogininfor(user.getUserName(), Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success"));
+        recordLoginInfo(user.getUserId(), user.getUserName());
+        return StpUtil.getTokenValue();
+    }
+
     public String smsLogin(String phonenumber, String smsCode) {
         // 通过手机号查找用户
         SysUser user = loadUserByPhonenumber(phonenumber);
@@ -103,7 +134,6 @@ public class SysLoginService {
 
     public String xcxLogin(String xcxCode) {
         // xcxCode 为 小程序调用 wx.login 授权后获取
-        // todo 以下自行实现
         // 校验 appid + appsrcret + xcxCode 调用登录凭证校验接口 获取 session_key 与 openid
         String openid = "";
         SysUser user = loadUserByOpenid(openid);
