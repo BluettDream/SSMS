@@ -20,10 +20,6 @@ import java.util.List;
  * @author bluett
  * @date 2023-05-08
  */
-@DataPermission({
-    @DataColumn(key = "userName",value = "u.user_id"),
-    @DataColumn(key = "userNameKey", value = "u.user_name")
-})
 public interface ScoreMapper extends BaseMapperPlus<ScoreMapper, Score, ScoreVo> {
 
     ScoreVo selectScoreVoById(@Param("id") Long scoreId);
