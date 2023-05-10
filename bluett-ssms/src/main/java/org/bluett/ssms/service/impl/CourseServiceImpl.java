@@ -67,12 +67,13 @@ public class CourseServiceImpl implements ICourseService {
         Map<String, Object> params = bo.getParams();
         QueryWrapper<CourseVo> qw = Wrappers.query();
         qw.eq("c.del_flag", "0");
+        qw.eq(params.get("userId") != null, "u.user_id", params.get("userId")); // 数据权限校验
+        qw.eq(bo.getCredit() != null, "c.credit", bo.getCredit());
+        qw.ge(bo.getStartTime() != null, "c.start_time", bo.getStartTime());
+        qw.le(bo.getFinishTime() != null, "c.finish_time", bo.getFinishTime());
+        qw.like(StringUtils.isNotBlank(bo.getNickName()), "u.nick_name", bo.getNickName());
         qw.like(StringUtils.isNotBlank(bo.getUserName()), "u.user_name", bo.getUserName());
         qw.like(StringUtils.isNotBlank(bo.getCourseName()), "c.course_name", bo.getCourseName());
-        qw.eq(bo.getCredit() != null, "c.credit", bo.getCredit());
-        qw.eq(bo.getStartTime() != null, "c.start_time", bo.getStartTime());
-        qw.eq(bo.getFinishTime() != null, "c.finish_time", bo.getFinishTime());
-        qw.like(StringUtils.isNotBlank(bo.getNickName()), "u.nick_name", bo.getNickName());
         return qw;
     }
 

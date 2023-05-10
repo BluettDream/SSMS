@@ -20,9 +20,6 @@ import java.util.List;
  * @author bluett
  * @date 2023-05-08
  */
-@DataPermission({
-    @DataColumn(key = "userNameKey", value = "c.user_name")
-})
 public interface CourseMapper extends BaseMapperPlus<CourseMapper, Course, CourseVo> {
 
     /**

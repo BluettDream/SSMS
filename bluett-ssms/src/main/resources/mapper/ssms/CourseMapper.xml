@@ -27,7 +27,7 @@
                u.user_name,
                u.nick_name
         from ssms_course c
-                 left join sys_user u on c.user_name = u.user_name
+                 inner join sys_user u on c.user_name = u.user_name
     </sql>
 
     <select id="selectCourseVoPage" resultType="org.bluett.ssms.domain.vo.CourseVo">

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.bluett.common.core.domain.BaseEntity;
 import org.bluett.common.core.validate.AddGroup;
 import org.bluett.common.core.validate.EditGroup;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 课程信息业务对象 ssms_course
@@ -49,12 +50,14 @@ public class CourseBo extends BaseEntity {
      * 开始日期
      */
     @NotNull(message = "开始日期不能为空", groups = { AddGroup.class, EditGroup.class })
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     /**
      * 结束日期
      */
     @NotNull(message = "结束日期不能为空", groups = { AddGroup.class, EditGroup.class })
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date finishTime;
 
     /**
