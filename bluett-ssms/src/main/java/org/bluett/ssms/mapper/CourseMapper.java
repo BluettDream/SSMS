@@ -42,4 +42,6 @@ public interface CourseMapper extends BaseMapperPlus<CourseMapper, Course, Cours
      * @return 课程信息
      **/
     CourseVo selectCourseVoById(@Param("id") Long courseId);
+
+    List<Long> selectCourseIdsByUserName(@Param("userName") String userName);
 }

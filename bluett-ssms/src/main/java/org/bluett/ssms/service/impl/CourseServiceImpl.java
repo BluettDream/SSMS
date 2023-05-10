@@ -118,4 +118,9 @@ public class CourseServiceImpl implements ICourseService {
         }
         return baseMapper.deleteBatchIds(ids) > 0;
     }
+
+    @Override
+    public List<Long> queryCourseIdsByUserName(String userName) {
+        return baseMapper.selectCourseIdsByUserName(userName);
+    }
 }

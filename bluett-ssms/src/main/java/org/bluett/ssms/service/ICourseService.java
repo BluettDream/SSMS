@@ -46,4 +46,9 @@ public interface ICourseService {
      * 校验并批量删除课程信息信息
      */
     Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid);
+
+    /**
+     * 根据用户名查询课程id列表
+     */
+    List<Long> queryCourseIdsByUserName(String userName);
 }

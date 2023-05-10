@@ -42,6 +42,11 @@
         <include refid="selectCourseVo"/>
         where c.del_flag = '0' and c.course_id = #{id}
     </select>
+    <select id="selectCourseIdsByUserName" resultType="java.lang.Long">
+        select scu.course_id
+        from ssms_course c inner join ssms_score_course_user scu on c.course_id=scu.course_id
+        where c.del_flag='0' and c.user_name=#{userName}
+    </select>
 
 
 </mapper>
