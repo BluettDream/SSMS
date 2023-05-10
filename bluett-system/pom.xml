@@ -34,6 +34,10 @@
             <groupId>org.bluett</groupId>
             <artifactId>bluett-sms</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.bluett</groupId>
+            <artifactId>bluett-ssms</artifactId>
+        </dependency>
 
     </dependencies>
 
