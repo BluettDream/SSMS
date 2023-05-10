@@ -1,5 +1,6 @@
 package org.bluett.ssms.domain.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
@@ -17,8 +18,7 @@ import lombok.Data;
  */
 @Data
 @ExcelIgnoreUnannotated
-public class CourseVo {
-
+public class CourseVo  implements Serializable{
     private static final long serialVersionUID = 1L;
 
     /**
@@ -49,7 +49,7 @@ public class CourseVo {
      * 学分
      */
     @ExcelProperty(value = "学分")
-    private Long credit;
+    private Double credit;
 
     /**
      * 开始日期
@@ -62,6 +62,4 @@ public class CourseVo {
      */
     @ExcelProperty(value = "结束日期")
     private Date finishTime;
-
-
 }
