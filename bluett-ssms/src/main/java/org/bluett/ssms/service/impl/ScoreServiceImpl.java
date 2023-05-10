@@ -67,12 +67,14 @@ public class ScoreServiceImpl implements IScoreService {
         Map<String, Object> params = bo.getParams();
         QueryWrapper<ScoreVo> qw = Wrappers.query();
         qw.eq("s.del_flag", "0");
-        qw.like(StringUtils.isNotBlank(bo.getCourseName()),"c.course_name", bo.getCourseName());
+        qw.eq(params.get("studentId") != null,"u.user_id", params.get("studentId"));//学生数据权限
+        qw.in(params.get("courseIdList") != null,"scu.course_id", (List<Long>) params.get("courseIdList"));//教师数据权限
         qw.eq(StringUtils.isNotBlank(bo.getUserName()),"u.user_name", bo.getUserName());
-        qw.like(StringUtils.isNotBlank(bo.getNickName()),"u.nick_name", bo.getNickName());
         qw.eq(bo.getScore() != null,"s.score", bo.getScore());
-        qw.eq(bo.getStartTime() != null,"c.start_time", bo.getStartTime());
-        qw.eq(bo.getFinishTime() != null,"c.finish_time", bo.getFinishTime());
+        qw.ge(bo.getStartTime() != null,"c.start_time", bo.getStartTime());
+        qw.le(bo.getFinishTime() != null,"c.finish_time", bo.getFinishTime());
+        qw.like(StringUtils.isNotBlank(bo.getCourseName()),"c.course_name", bo.getCourseName());
+        qw.like(StringUtils.isNotBlank(bo.getNickName()),"u.nick_name", bo.getNickName());
         return qw;
     }
 

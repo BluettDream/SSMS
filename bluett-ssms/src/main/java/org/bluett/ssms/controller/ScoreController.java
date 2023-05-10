@@ -7,7 +7,10 @@ import lombok.RequiredArgsConstructor;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import org.bluett.common.core.domain.dto.RoleDTO;
+import org.bluett.common.core.domain.model.LoginUser;
 import org.bluett.common.helper.DataPermissionHelper;
+import org.bluett.ssms.service.ICourseService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.bluett.common.annotation.RepeatSubmit;
@@ -37,6 +40,7 @@ import org.bluett.common.core.page.TableDataInfo;
 public class ScoreController extends BaseController {
 
     private final IScoreService iScoreService;
+    private final ICourseService iCourseService;
 
     /**
      * 查询分数信息列表
@@ -44,6 +48,20 @@ public class ScoreController extends BaseController {
     @SaCheckPermission("ssms:score:list")
     @GetMapping("/list")
     public TableDataInfo<ScoreVo> list(ScoreBo bo, PageQuery pageQuery) {
+        LoginUser loginUser = getLoginUser();
+        List<RoleDTO> loginUserRoles = loginUser.getRoles();
+        loginUserRoles.forEach(roleDTO -> {// 管理员不做判断,查询所有
+            // 教师:查所有教学课程的成绩
+            if (roleDTO.getRoleId() == 5) {
+                List<Long> ids = iCourseService.queryCourseIdsByUserName(loginUser.getUsername());
+                if(ids.size() == 0) ids.add(-999L); // 如果没有查询到数据，则输入一个不存在的课程ID
+                bo.getParams().put("courseIdList", ids);
+            }
+            // 学生:查自己的成绩
+            if(roleDTO.getRoleId() == 6){
+                bo.getParams().put("studentId", loginUser.getUserId());
+            }
+        });
         return iScoreService.queryPageList(bo, pageQuery);
     }
 
