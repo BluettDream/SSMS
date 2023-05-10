@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.bluett.common.core.domain.BaseEntity;
 import org.bluett.common.core.validate.AddGroup;
 import org.bluett.common.core.validate.EditGroup;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
 import java.util.Date;
@@ -57,11 +58,13 @@ public class ScoreBo extends BaseEntity {
     /**
      * 开始日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     /**
      * 结束日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date finishTime;
 
     /**
@@ -73,6 +76,8 @@ public class ScoreBo extends BaseEntity {
      * 分数
      */
     @NotNull(message = "分数不能为空", groups = { AddGroup.class, EditGroup.class })
+    @Max(value = 100, message = "分数不能大于100", groups = { AddGroup.class, EditGroup.class })
+    @Min(value = 0, message = "分数不能小于0", groups = { AddGroup.class, EditGroup.class })
     private Double score;
 
 }
