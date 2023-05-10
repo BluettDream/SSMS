@@ -1,10 +1,12 @@
 package org.bluett.system.domain.vo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.baomidou.mybatisplus.annotation.TableField;
 import org.bluett.common.annotation.ExcelDictFormat;
 import org.bluett.common.convert.ExcelDictConvert;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bluett.common.convert.ExcelLongListConvert;
 
 import java.io.Serializable;
 
@@ -20,17 +22,31 @@ import java.io.Serializable;
 public class SysUserImportVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 用户ID
-     */
-    @ExcelProperty(value = "用户序号")
-    private Long userId;
+    ///**
+    // * 用户ID
+    // */
+    //@ExcelProperty(value = "用户序号")
+    //private Long userId;
 
     /**
      * 部门ID
      */
     @ExcelProperty(value = "部门编号")
     private Long deptId;
+
+    /**
+     * 角色组
+     */
+    @ExcelProperty(value = "角色组", converter = ExcelLongListConvert.class)
+    @ExcelDictFormat(separator = ",")
+    private Long[] roleIds;
+
+    /**
+     * 岗位组
+     */
+    @ExcelProperty(value = "岗位组", converter = ExcelLongListConvert.class)
+    @ExcelDictFormat(separator = ",")
+    private Long[] postIds;
 
     /**
      * 用户账号
@@ -41,7 +57,7 @@ public class SysUserImportVo implements Serializable {
     /**
      * 用户昵称
      */
-    @ExcelProperty(value = "用户名称")
+    @ExcelProperty(value = "用户名称(姓名)")
     private String nickName;
 
     /**

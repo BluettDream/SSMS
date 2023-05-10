@@ -103,7 +103,19 @@ public class SysUserController extends BaseController {
      */
     @PostMapping("/importTemplate")
     public void importTemplate(HttpServletResponse response) {
-        ExcelUtil.exportExcel(new ArrayList<>(), "用户数据", SysUserImportVo.class, response);
+        List<SysUserImportVo> template = new ArrayList<>();
+        SysUserImportVo userImportVo = new SysUserImportVo();
+        userImportVo.setDeptId(4L);
+        userImportVo.setEmail("非必填(!删除这一行在提交前)");
+        userImportVo.setUserName("20230510203");
+        userImportVo.setPhonenumber("非必填");
+        userImportVo.setNickName("小红同学(!该行为示例行)");
+        userImportVo.setRoleIds(new Long[]{6L,1655865385745555458L});
+        userImportVo.setPostIds(new Long[]{4L});
+        userImportVo.setSex("0");
+        userImportVo.setStatus("0");
+        template.add(userImportVo);
+        ExcelUtil.exportExcel(template, "用户数据", SysUserImportVo.class, response);
     }
 
     /**
