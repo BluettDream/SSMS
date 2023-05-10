@@ -106,7 +106,7 @@ public class SysUserController extends BaseController {
         List<SysUserImportVo> template = new ArrayList<>();
         SysUserImportVo userImportVo = new SysUserImportVo();
         userImportVo.setDeptId(4L);
-        userImportVo.setEmail("非必填(!删除这一行在提交前)");
+        userImportVo.setEmail("非必填(!这一行必须删除)");
         userImportVo.setUserName("20230510203");
         userImportVo.setPhonenumber("非必填");
         userImportVo.setNickName("小红同学(!该行为示例行)");
