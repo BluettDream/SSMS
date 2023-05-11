@@ -1,8 +1,8 @@
-package org.bluett.ssms.service.impl;
+package org.bluett.common.face.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.bluett.ssms.service.FaceService;
+import org.bluett.common.face.FaceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

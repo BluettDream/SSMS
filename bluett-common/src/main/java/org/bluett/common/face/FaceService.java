@@ -1,4 +1,4 @@
-package org.bluett.ssms.service;
+package org.bluett.common.face;
 
 /**
  * @author bluett
