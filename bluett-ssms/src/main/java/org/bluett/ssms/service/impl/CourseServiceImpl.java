@@ -11,6 +11,7 @@ import org.bluett.common.core.domain.PageQuery;
 import org.bluett.common.core.domain.entity.SysUser;
 import org.bluett.common.core.domain.model.LoginUser;
 import org.bluett.common.core.page.TableDataInfo;
+import org.bluett.common.core.service.UserService;
 import org.bluett.common.exception.ServiceException;
 import org.bluett.common.helper.LoginHelper;
 import org.bluett.common.utils.StringUtils;
@@ -19,7 +20,6 @@ import org.bluett.ssms.domain.bo.CourseBo;
 import org.bluett.ssms.domain.vo.CourseVo;
 import org.bluett.ssms.mapper.CourseMapper;
 import org.bluett.ssms.service.ICourseService;
-import org.bluett.system.mapper.SysUserMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -37,7 +37,8 @@ import java.util.Map;
 public class CourseServiceImpl implements ICourseService {
 
     private final CourseMapper baseMapper;
-    private final SysUserMapper userMapper;
+    //private final SysUserMapper userMapper;
+    private final UserService userService;
 
     /**
      * 查询课程信息
@@ -121,7 +122,7 @@ public class CourseServiceImpl implements ICourseService {
         if(!loginUser.getUsername().equals(bo.getUserName())) { //登录用户是教师，但不是该课程的教师
             throw new ServiceException("您没有权限编辑其他教师的课程");
         }
-        SysUser teacher = userMapper.selectUserByUserName(bo.getUserName());
+        SysUser teacher = userService.selectUserByUserName(bo.getUserName());//校验教师是否存在
         if(ObjectUtil.isNull(teacher)) throw new ServiceException("教师不存在");
     }
 

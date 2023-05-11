@@ -26,7 +26,6 @@ import org.bluett.system.domain.SysPost;
 import org.bluett.system.domain.SysUserPost;
 import org.bluett.system.domain.SysUserRole;
 import org.bluett.system.mapper.*;
-import org.bluett.system.mapper.*;
 import org.bluett.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

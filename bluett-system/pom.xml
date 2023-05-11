@@ -35,6 +35,18 @@
             <artifactId>bluett-sms</artifactId>
         </dependency>
 
+        <!-- SSMS功能模块 -->
+        <dependency>
+            <groupId>org.bluett</groupId>
+            <artifactId>bluett-ssms</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bluett</groupId>
+                    <artifactId>bluett-common</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 
 </project>

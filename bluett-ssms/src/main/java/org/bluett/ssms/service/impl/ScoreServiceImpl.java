@@ -11,6 +11,7 @@ import org.bluett.common.core.domain.PageQuery;
 import org.bluett.common.core.domain.entity.SysUser;
 import org.bluett.common.core.domain.model.LoginUser;
 import org.bluett.common.core.page.TableDataInfo;
+import org.bluett.common.core.service.UserService;
 import org.bluett.common.exception.ServiceException;
 import org.bluett.common.helper.LoginHelper;
 import org.bluett.common.utils.StringUtils;
@@ -24,7 +25,6 @@ import org.bluett.ssms.mapper.CourseMapper;
 import org.bluett.ssms.mapper.ScoreCourseUserMapper;
 import org.bluett.ssms.mapper.ScoreMapper;
 import org.bluett.ssms.service.IScoreService;
-import org.bluett.system.mapper.SysUserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,7 +44,7 @@ public class ScoreServiceImpl implements IScoreService {
 
     private final ScoreMapper baseMapper;
     private final ScoreCourseUserMapper scoreCourseUserMapper;
-    private final SysUserMapper userMapper;
+    private final UserService userService;
     private final CourseMapper courseMapper;
 
     /**
@@ -129,7 +129,7 @@ public class ScoreServiceImpl implements IScoreService {
      * 保存前的数据校验
      */
     private void validEntityBeforeSave(ScoreBo bo){
-        SysUser student = userMapper.selectUserByUserName(bo.getUserName());
+        SysUser student = userService.selectUserByUserName(bo.getUserName());
         CourseVo course = courseMapper.selectCourseVoById(bo.getCourseId());
         if(ObjectUtil.isNull(student)) throw new ServiceException("学生不存在");
         if(ObjectUtil.isNull(course)) throw new ServiceException("课程不存在");
