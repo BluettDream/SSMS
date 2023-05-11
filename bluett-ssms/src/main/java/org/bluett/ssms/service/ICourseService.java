@@ -51,4 +51,9 @@ public interface ICourseService {
      * 根据用户名查询课程id列表
      */
     List<Long> queryCourseIdsByUserName(String userName);
+
+    /**
+     * 校验课程是否唯一(根据教师编号和课程名称是否都相同进行校验)
+     */
+    Boolean checkCourseUnique(CourseBo bo);
 }

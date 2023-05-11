@@ -1,15 +1,10 @@
 package org.bluett.ssms.service.impl;
 
-import ch.qos.logback.core.encoder.LayoutWrappingEncoder;
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import org.apache.ibatis.builder.MapperBuilderAssistant;
 import org.bluett.common.core.page.TableDataInfo;
 import org.bluett.common.core.domain.PageQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.bluett.common.utils.StringUtils;
@@ -82,8 +77,8 @@ public class CourseServiceImpl implements ICourseService {
      */
     @Override
     public Boolean insertByBo(CourseBo bo) {
+        validEntityBeforeSave(bo);
         Course add = BeanUtil.toBean(bo, Course.class);
-        validEntityBeforeSave(add);
         boolean flag = baseMapper.insert(add) > 0;
         if (flag) {
             bo.setCourseId(add.getCourseId());
@@ -96,16 +91,18 @@ public class CourseServiceImpl implements ICourseService {
      */
     @Override
     public Boolean updateByBo(CourseBo bo) {
+        validEntityBeforeSave(bo);
         Course update = BeanUtil.toBean(bo, Course.class);
-        validEntityBeforeSave(update);
         return baseMapper.updateById(update) > 0;
     }
 
     /**
      * 保存前的数据校验
      */
-    private void validEntityBeforeSave(Course entity){
-        //TODO 做一些数据校验,如唯一约束
+    private void validEntityBeforeSave(CourseBo bo){
+        if(!checkCourseUnique(bo)){
+            throw new RuntimeException("课程信息已存在");
+        }
     }
 
     /**
@@ -122,5 +119,13 @@ public class CourseServiceImpl implements ICourseService {
     @Override
     public List<Long> queryCourseIdsByUserName(String userName) {
         return baseMapper.selectCourseIdsByUserName(userName);
+    }
+
+    @Override
+    public Boolean checkCourseUnique(CourseBo bo) {
+        boolean exists = baseMapper.exists(new QueryWrapper<Course>()
+            .eq(StringUtils.isNotBlank(bo.getUserName()), "user_name", bo.getUserName())
+            .eq(StringUtils.isNotBlank(bo.getCourseName()), "course_name", bo.getCourseName()));
+        return !exists;
     }
 }
