@@ -19,6 +19,7 @@
                u.nick_name,
                c.course_id,
                c.course_name,
+               c.user_name as teacher_id,
                c.start_time,
                c.finish_time,
                c.credit,

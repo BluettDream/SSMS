@@ -1,27 +1,36 @@
 package org.bluett.ssms.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.bluett.common.core.page.TableDataInfo;
-import org.bluett.common.core.domain.PageQuery;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
+import org.bluett.common.constant.UserConstants;
+import org.bluett.common.core.domain.PageQuery;
+import org.bluett.common.core.domain.entity.SysUser;
+import org.bluett.common.core.domain.model.LoginUser;
+import org.bluett.common.core.page.TableDataInfo;
+import org.bluett.common.exception.ServiceException;
+import org.bluett.common.helper.LoginHelper;
 import org.bluett.common.utils.StringUtils;
-import org.bluett.ssms.domain.ScoreCourseUser;
-import org.bluett.ssms.mapper.ScoreCourseUserMapper;
-import org.springframework.stereotype.Service;
-import org.bluett.ssms.domain.bo.ScoreBo;
-import org.bluett.ssms.domain.vo.ScoreVo;
 import org.bluett.ssms.domain.Score;
+import org.bluett.ssms.domain.ScoreCourseUser;
+import org.bluett.ssms.domain.bo.ScoreBo;
+import org.bluett.ssms.domain.vo.CourseVo;
+import org.bluett.ssms.domain.vo.ScoreCourseUserVo;
+import org.bluett.ssms.domain.vo.ScoreVo;
+import org.bluett.ssms.mapper.CourseMapper;
+import org.bluett.ssms.mapper.ScoreCourseUserMapper;
 import org.bluett.ssms.mapper.ScoreMapper;
 import org.bluett.ssms.service.IScoreService;
+import org.bluett.system.mapper.SysUserMapper;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Collection;
 
 /**
  * 分数信息Service业务层处理
@@ -35,6 +44,8 @@ public class ScoreServiceImpl implements IScoreService {
 
     private final ScoreMapper baseMapper;
     private final ScoreCourseUserMapper scoreCourseUserMapper;
+    private final SysUserMapper userMapper;
+    private final CourseMapper courseMapper;
 
     /**
      * 查询分数信息
@@ -84,8 +95,9 @@ public class ScoreServiceImpl implements IScoreService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean insertByBo(ScoreBo bo) {
+        validEntityBeforeSave(bo);
+        if(!checkScoreUnique(bo)) throw new ServiceException("成绩已存在");
         Score addScore = BeanUtil.toBean(bo, Score.class);
-        validEntityBeforeSave(addScore);
         boolean flag = baseMapper.insert(addScore) > 0;
         if(flag){
             bo.setScoreId(addScore.getScoreId());
@@ -99,9 +111,16 @@ public class ScoreServiceImpl implements IScoreService {
      * 修改分数信息
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean updateByBo(ScoreBo bo) {
+        validEntityBeforeSave(bo);
+        if(bo.getScoreId() == null && !checkScoreUnique(bo)){//成绩已存在并且是导入模式则添加成绩ID
+            ScoreCourseUserVo scoreCourseUserVo = scoreCourseUserMapper.selectVoOne(new QueryWrapper<ScoreCourseUser>()
+                .eq(StringUtils.isNotBlank(bo.getUserName()), "user_name", bo.getUserName())
+                .eq(bo.getCourseId() != null, "course_id", bo.getCourseId()));
+            bo.setScoreId(scoreCourseUserVo.getScoreId());
+        }
         Score updScore = BeanUtil.toBean(bo, Score.class);
-        validEntityBeforeSave(updScore);
         ScoreCourseUser scoreCourseUser = BeanUtil.toBean(bo, ScoreCourseUser.class);
         return baseMapper.updateById(updScore) > 0 && scoreCourseUserMapper.updateById(scoreCourseUser) > 0;
     }
@@ -109,8 +128,11 @@ public class ScoreServiceImpl implements IScoreService {
     /**
      * 保存前的数据校验
      */
-    private void validEntityBeforeSave(Score entity){
-        //TODO 做一些数据校验,如唯一约束
+    private void validEntityBeforeSave(ScoreBo bo){
+        SysUser student = userMapper.selectUserByUserName(bo.getUserName());
+        CourseVo course = courseMapper.selectCourseVoById(bo.getCourseId());
+        if(ObjectUtil.isNull(student)) throw new ServiceException("学生不存在");
+        if(ObjectUtil.isNull(course)) throw new ServiceException("课程不存在");
     }
 
     /**
@@ -119,8 +141,24 @@ public class ScoreServiceImpl implements IScoreService {
     @Override
     public Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid) {
         if(isValid){
-            //TODO 做一些业务上的校验,判断是否需要校验
+            LoginUser loginUser = LoginHelper.getLoginUser();
+            if(loginUser.getRoles().stream().noneMatch(roleDTO -> roleDTO.getRoleId().equals(UserConstants.ADMIN_ID))){//不是管理员
+                // 找到教师授课的所有课程
+                List<Long> courseIdList = courseMapper.selectCourseIdsByUserName(loginUser.getUsername());
+                // 根据课程找到所有的成绩id
+                List<Long> idList = scoreCourseUserMapper.selectScoreIdsByCourseIds(courseIdList);
+                // 要删除的所有成绩id中，有一个不是该用户的成绩，抛出异常
+                if(!idList.containsAll(ids)) throw new ServiceException("删除异常,未找到成绩信息");
+            }
         }
         return baseMapper.deleteBatchIds(ids) > 0;
+    }
+
+    @Override
+    public Boolean checkScoreUnique(ScoreBo bo) {
+        boolean exists = scoreCourseUserMapper.exists(new QueryWrapper<ScoreCourseUser>()
+            .eq(StringUtils.isNotBlank(bo.getUserName()), "user_name", bo.getUserName())
+            .eq(bo.getCourseId() != null, "course_id", bo.getCourseId()));
+        return !exists;
     }
 }

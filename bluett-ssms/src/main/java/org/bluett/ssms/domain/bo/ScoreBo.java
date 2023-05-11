@@ -51,9 +51,9 @@ public class ScoreBo extends BaseEntity {
     private String courseName;
 
     /**
-     * 教师姓名
+     * 教师编号
      */
-    private String teacherNickName;
+    private String teacherId;
 
     /**
      * 开始日期

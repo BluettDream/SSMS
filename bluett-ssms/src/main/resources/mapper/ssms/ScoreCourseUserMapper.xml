@@ -9,6 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="courseId" column="course_id"/>
         <result property="userName" column="user_name"/>
     </resultMap>
+    <select id="selectScoreIdsByCourseIds" resultType="java.lang.Long">
+        select s.score_id from ssms_score_course_user scu,ssms_score s
+        where scu.score_id=s.score_id and s.del_flag='0' and course_id in #{courseIds}
+    </select>
 
 
 </mapper>

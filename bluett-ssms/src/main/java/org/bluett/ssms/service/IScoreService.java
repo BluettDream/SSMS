@@ -1,10 +1,9 @@
 package org.bluett.ssms.service;
 
-import org.bluett.ssms.domain.Score;
-import org.bluett.ssms.domain.vo.ScoreVo;
-import org.bluett.ssms.domain.bo.ScoreBo;
-import org.bluett.common.core.page.TableDataInfo;
 import org.bluett.common.core.domain.PageQuery;
+import org.bluett.common.core.page.TableDataInfo;
+import org.bluett.ssms.domain.bo.ScoreBo;
+import org.bluett.ssms.domain.vo.ScoreVo;
 
 import java.util.Collection;
 import java.util.List;
@@ -46,4 +45,9 @@ public interface IScoreService {
      * 校验并批量删除分数信息信息
      */
     Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid);
+
+    /**
+     * 检查分数是否唯一
+     */
+    Boolean checkScoreUnique(ScoreBo bo);
 }

@@ -134,4 +134,8 @@ public interface UserConstants {
      */
     Long TEACHER_ID = 5L;
 
+    /**
+     * 学生ID
+     */
+    Long STUDENT_ID = 6L;
 }

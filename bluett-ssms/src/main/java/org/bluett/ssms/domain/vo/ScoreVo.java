@@ -2,8 +2,6 @@ package org.bluett.ssms.domain.vo;
 
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
-import org.bluett.common.annotation.ExcelDictFormat;
-import org.bluett.common.convert.ExcelDictConvert;
 import lombok.Data;
 
 import java.util.Date;
@@ -53,8 +51,8 @@ public class ScoreVo {
     /**
      * 教师姓名
      */
-    @ExcelProperty(value = "教师姓名")
-    private String teacherNickName;
+    @ExcelProperty(value = "教师编号")
+    private String teacherId;
 
     /**
      * 开始日期

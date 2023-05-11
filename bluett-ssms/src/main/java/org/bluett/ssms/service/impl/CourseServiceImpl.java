@@ -103,6 +103,12 @@ public class CourseServiceImpl implements ICourseService {
     @Override
     public Boolean updateByBo(CourseBo bo) {
         validEntityBeforeSave(bo);
+        if(bo.getCourseId() == null && !checkCourseUnique(bo)){//课程已存在并且是导入模式则添加课程ID
+            CourseVo courseVo = baseMapper.selectVoOne(new QueryWrapper<Course>()
+                .eq(StringUtils.isNotBlank(bo.getCourseName()), "course_name", bo.getCourseName())
+                .eq(StringUtils.isNotBlank(bo.getUserName()), "user_name", bo.getUserName()));
+            bo.setCourseId(courseVo.getCourseId());
+        }
         Course update = BeanUtil.toBean(bo, Course.class);
         return baseMapper.updateById(update) > 0;
     }
@@ -112,17 +118,11 @@ public class CourseServiceImpl implements ICourseService {
      */
     private void validEntityBeforeSave(CourseBo bo){
         LoginUser loginUser = LoginHelper.getLoginUser();
+        if(!loginUser.getUsername().equals(bo.getUserName())) { //登录用户是教师，但不是该课程的教师
+            throw new ServiceException("您没有权限编辑其他教师的课程");
+        }
         SysUser teacher = userMapper.selectUserByUserName(bo.getUserName());
-        if(ObjectUtil.isNull(teacher)) {
-            throw new ServiceException("教师编号不存在");
-        }
-        if(loginUser.getRoles().stream().noneMatch(roleDTO -> roleDTO.getRoleId().equals(UserConstants.ADMIN_ID))) { //登录用户不是管理员
-            if(loginUser.getRoles().stream().noneMatch(roleDTO -> roleDTO.getRoleId().equals(UserConstants.TEACHER_ID))) { //登录用户也不是教师
-                throw new ServiceException("您没有权限编辑该课程");
-            }else if(!loginUser.getUsername().equals(teacher.getUserName())) { //登录用户是教师，但不是该课程的教师
-                throw new ServiceException("您没有权限编辑其他教师的课程");
-            }
-        }
+        if(ObjectUtil.isNull(teacher)) throw new ServiceException("教师不存在");
     }
 
     /**
