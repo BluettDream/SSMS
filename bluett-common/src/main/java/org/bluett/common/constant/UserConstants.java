@@ -129,4 +129,9 @@ public interface UserConstants {
      */
     Long ADMIN_ID = 1L;
 
+    /**
+     * 教师ID
+     */
+    Long TEACHER_ID = 5L;
+
 }
