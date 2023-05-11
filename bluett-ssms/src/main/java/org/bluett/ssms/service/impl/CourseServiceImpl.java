@@ -119,11 +119,13 @@ public class CourseServiceImpl implements ICourseService {
      */
     private void validEntityBeforeSave(CourseBo bo){
         LoginUser loginUser = LoginHelper.getLoginUser();
-        if(!loginUser.getUsername().equals(bo.getUserName())) { //登录用户是教师，但不是该课程的教师
-            throw new ServiceException("您没有权限编辑其他教师的课程");
+        if(loginUser.getRoles().stream().noneMatch(roleDTO -> roleDTO.getRoleId().equals(UserConstants.ADMIN_ID))){//不是管理员
+            if(!loginUser.getUsername().equals(bo.getUserName())) { //登录用户是教师，但不是该课程的教师
+                throw new ServiceException("您没有权限编辑其他教师的课程");
+            }
         }
         SysUser teacher = userService.selectUserByUserName(bo.getUserName());//校验教师是否存在
-        if(ObjectUtil.isNull(teacher)) throw new ServiceException("教师不存在");
+        if(ObjectUtil.isNull(teacher)) throw new ServiceException("编号为"+bo.getUserName()+"的教师不存在");
     }
 
     /**
