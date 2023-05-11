@@ -4,8 +4,6 @@ package org.bluett.common.convert;
 import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.excel.converters.Converter;
-import com.alibaba.excel.converters.ReadConverterContext;
-import com.alibaba.excel.converters.WriteConverterContext;
 import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.ReadCellData;
@@ -32,6 +30,9 @@ public class ExcelLongListConvert implements Converter<Object> {
 
     @Override
     public Long[] convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+        if(cellData.getType().compareTo(CellDataTypeEnum.NUMBER) == 0){ // 如果就一个值，那么就是数字类型
+            return new Long[]{cellData.getNumberValue().longValue()};
+        }
         ExcelDictFormat annotation = getAnnotation(contentProperty.getField());
         String separator = annotation.separator();
         String stringValue = cellData.getStringValue();
