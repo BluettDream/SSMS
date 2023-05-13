@@ -4,7 +4,8 @@ import cn.dev33.satoken.annotation.SaIgnore;
 import cn.hutool.captcha.AbstractCaptcha;
 import cn.hutool.captcha.generator.CodeGenerator;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.RandomUtil;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bluett.common.constant.CacheConstants;
 import org.bluett.common.constant.Constants;
 import org.bluett.common.core.domain.R;
@@ -14,12 +15,7 @@ import org.bluett.common.utils.redis.RedisUtils;
 import org.bluett.common.utils.reflect.ReflectUtils;
 import org.bluett.common.utils.spring.SpringUtils;
 import org.bluett.framework.config.properties.CaptchaProperties;
-import org.bluett.sms.config.properties.SmsProperties;
-import org.bluett.sms.core.SmsTemplate;
-import org.bluett.sms.entity.SmsResult;
 import org.bluett.system.service.ISysConfigService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -27,7 +23,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotBlank;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,35 +40,7 @@ import java.util.Map;
 public class CaptchaController {
 
     private final CaptchaProperties captchaProperties;
-    private final SmsProperties smsProperties;
     private final ISysConfigService configService;
-
-    /**
-     * 短信验证码
-     *
-     * @param phonenumber 用户手机号
-     */
-    @GetMapping("/captchaSms")
-    public R<Void> smsCaptcha(@NotBlank(message = "{user.phonenumber.not.blank}")
-                              String phonenumber) {
-        if (!smsProperties.getEnabled()) {
-            return R.fail("当前系统没有开启短信功能！");
-        }
-        String key = CacheConstants.CAPTCHA_CODE_KEY + phonenumber;
-        String code = RandomUtil.randomNumbers(4);
-        RedisUtils.setCacheObject(key, code, Duration.ofMinutes(Constants.CAPTCHA_EXPIRATION));
-        // 验证码模板id 自行处理 (查数据库或写死均可)
-        String templateId = "";
-        Map<String, String> map = new HashMap<>(1);
-        map.put("code", code);
-        SmsTemplate smsTemplate = SpringUtils.getBean(SmsTemplate.class);
-        SmsResult result = smsTemplate.send(phonenumber, templateId, map);
-        if (!result.isSuccess()) {
-            log.error("验证码短信发送异常 => {}", result);
-            return R.fail(result.getMessage());
-        }
-        return R.ok();
-    }
 
     /**
      * 生成验证码

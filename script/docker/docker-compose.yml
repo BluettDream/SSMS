@@ -128,27 +128,3 @@ services:
 #      - /docker/skywalking/agent/:/ruoyi/skywalking/agent
     privileged: true
     network_mode: "host"
-
-  bluett-monitor-admin:
-    image: ruoyi/bluett-monitor-admin:4.6.0
-    container_name: bluett-monitor-admin
-    environment:
-      # 时区上海
-      TZ: Asia/Shanghai
-    volumes:
-      # 配置文件
-      - /docker/monitor/logs/:/ruoyi/monitor/logs
-    privileged: true
-    network_mode: "host"
-
-  bluett-xxl-job-admin:
-    image: ruoyi/bluett-xxl-job-admin:4.6.0
-    container_name: bluett-xxl-job-admin
-    environment:
-      # 时区上海
-      TZ: Asia/Shanghai
-    volumes:
-      # 配置文件
-      - /docker/xxljob/logs/:/ruoyi/xxljob/logs
-    privileged: true
-    network_mode: "host"

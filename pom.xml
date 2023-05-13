@@ -29,12 +29,10 @@
         <p6spy.version>3.9.1</p6spy.version>
         <hutool.version>5.8.15</hutool.version>
         <okhttp.version>4.10.0</okhttp.version>
-        <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
         <redisson.version>3.20.0</redisson.version>
         <lock4j.version>2.2.3</lock4j.version>
         <dynamic-ds.version>3.5.2</dynamic-ds.version>
         <alibaba-ttl.version>2.14.2</alibaba-ttl.version>
-        <xxl-job.version>2.3.1</xxl-job.version>
         <lombok.version>1.18.26</lombok.version>
         <bouncycastle.version>1.72</bouncycastle.version>
 
@@ -43,9 +41,6 @@
 
         <!-- OSS 配置 -->
         <aws-java-sdk-s3.version>1.12.400</aws-java-sdk-s3.version>
-        <!-- SMS 配置 -->
-        <aliyun.sms.version>2.0.23</aliyun.sms.version>
-        <tencent.sms.version>3.1.687</tencent.sms.version>
     </properties>
 
     <profiles>
@@ -198,29 +193,6 @@
                 <version>${aws-java-sdk-s3.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>dysmsapi20170525</artifactId>
-                <version>${aliyun.sms.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.tencentcloudapi</groupId>
-                <artifactId>tencentcloud-sdk-java-sms</artifactId>
-                <version>${tencent.sms.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>de.codecentric</groupId>
-                <artifactId>spring-boot-admin-starter-server</artifactId>
-                <version>${spring-boot-admin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.codecentric</groupId>
-                <artifactId>spring-boot-admin-starter-client</artifactId>
-                <version>${spring-boot-admin.version}</version>
-            </dependency>
-
             <!--redisson-->
             <dependency>
                 <groupId>org.redisson</groupId>
@@ -245,13 +217,6 @@
                 <version>${lock4j.version}</version>
             </dependency>
 
-            <!-- xxl-job-core -->
-            <dependency>
-                <groupId>com.xuxueli</groupId>
-                <artifactId>xxl-job-core</artifactId>
-                <version>${xxl-job.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>transmittable-thread-local</artifactId>
@@ -270,13 +235,6 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15to18</artifactId>
                 <version>${bouncycastle.version}</version>
-            </dependency>
-
-            <!-- 定时任务 -->
-            <dependency>
-                <groupId>org.bluett</groupId>
-                <artifactId>bluett-job</artifactId>
-                <version>${ssms.version}</version>
             </dependency>
 
             <!-- 代码生成-->
@@ -314,20 +272,6 @@
                 <version>${ssms.version}</version>
             </dependency>
 
-            <!-- SMS短信模块 -->
-            <dependency>
-                <groupId>org.bluett</groupId>
-                <artifactId>bluett-sms</artifactId>
-                <version>${ssms.version}</version>
-            </dependency>
-
-            <!-- demo模块 -->
-            <dependency>
-                <groupId>org.bluett</groupId>
-                <artifactId>bluett-demo</artifactId>
-                <version>${ssms.version}</version>
-            </dependency>
-
             <!-- ssms模块 -->
             <dependency>
                 <groupId>org.bluett</groupId>
@@ -342,13 +286,9 @@
         <module>bluett-admin</module>
         <module>bluett-framework</module>
         <module>bluett-system</module>
-        <module>bluett-job</module>
         <module>bluett-generator</module>
         <module>bluett-common</module>
-        <module>bluett-demo</module>
-        <module>bluett-extend</module>
         <module>bluett-oss</module>
-        <module>bluett-sms</module>
         <module>bluett-ssms</module>
     </modules>
     <packaging>pom</packaging>

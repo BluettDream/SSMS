@@ -29,12 +29,6 @@
             <artifactId>bluett-oss</artifactId>
         </dependency>
 
-        <!-- SMS功能模块 -->
-        <dependency>
-            <groupId>org.bluett</groupId>
-            <artifactId>bluett-sms</artifactId>
-        </dependency>
-
         <!-- SSMS功能模块 -->
         <dependency>
             <groupId>org.bluett</groupId>

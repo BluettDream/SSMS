@@ -14,7 +14,6 @@ import org.bluett.common.core.domain.dto.RoleDTO;
 import org.bluett.common.core.domain.entity.SysUser;
 import org.bluett.common.core.domain.event.LogininforEvent;
 import org.bluett.common.core.domain.model.LoginUser;
-import org.bluett.common.core.domain.model.XcxLoginUser;
 import org.bluett.common.enums.DeviceType;
 import org.bluett.common.enums.LoginType;
 import org.bluett.common.enums.UserStatus;
@@ -109,42 +108,6 @@ public class SysLoginService {
         LoginUser loginUser = buildLoginUser(user);
         // 生成token
         LoginHelper.loginByDevice(loginUser, DeviceType.PC);
-
-        recordLogininfor(user.getUserName(), Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success"));
-        recordLoginInfo(user.getUserId(), user.getUserName());
-        return StpUtil.getTokenValue();
-    }
-
-    public String smsLogin(String phonenumber, String smsCode) {
-        // 通过手机号查找用户
-        SysUser user = loadUserByPhonenumber(phonenumber);
-
-        checkLogin(LoginType.SMS, user.getUserName(), () -> !validateSmsCode(phonenumber, smsCode));
-        // 此处可根据登录用户的数据不同 自行创建 loginUser
-        LoginUser loginUser = buildLoginUser(user);
-        // 生成token
-        LoginHelper.loginByDevice(loginUser, DeviceType.APP);
-
-        recordLogininfor(user.getUserName(), Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success"));
-        recordLoginInfo(user.getUserId(), user.getUserName());
-        return StpUtil.getTokenValue();
-    }
-
-
-    public String xcxLogin(String xcxCode) {
-        // xcxCode 为 小程序调用 wx.login 授权后获取
-        // 校验 appid + appsrcret + xcxCode 调用登录凭证校验接口 获取 session_key 与 openid
-        String openid = "";
-        SysUser user = loadUserByOpenid(openid);
-
-        // 此处可根据登录用户的数据不同 自行创建 loginUser
-        XcxLoginUser loginUser = new XcxLoginUser();
-        loginUser.setUserId(user.getUserId());
-        loginUser.setUsername(user.getUserName());
-        loginUser.setUserType(user.getUserType());
-        loginUser.setOpenid(openid);
-        // 生成token
-        LoginHelper.loginByDevice(loginUser, DeviceType.XCX);
 
         recordLogininfor(user.getUserName(), Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success"));
         recordLoginInfo(user.getUserId(), user.getUserName());

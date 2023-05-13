@@ -1,27 +1,23 @@
 package org.bluett.web.controller.system;
 
 import cn.dev33.satoken.annotation.SaIgnore;
+import lombok.RequiredArgsConstructor;
 import org.bluett.common.constant.Constants;
 import org.bluett.common.core.domain.R;
 import org.bluett.common.core.domain.entity.SysMenu;
 import org.bluett.common.core.domain.entity.SysUser;
 import org.bluett.common.core.domain.model.LoginBody;
 import org.bluett.common.core.domain.model.LoginUser;
-import org.bluett.common.core.domain.model.SmsLoginBody;
 import org.bluett.common.helper.LoginHelper;
 import org.bluett.system.domain.vo.RouterVo;
 import org.bluett.system.service.ISysMenuService;
 import org.bluett.system.service.ISysUserService;
 import org.bluett.system.service.SysLoginService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotBlank;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,38 +65,6 @@ public class SysLoginController {
         Map<String, Object> ajax = new HashMap<>();
         // 生成令牌
         String token = loginService.faceLogin(faceImg);
-        ajax.put(Constants.TOKEN, token);
-        return R.ok(ajax);
-    }
-
-    /**
-     * 短信登录(示例)
-     *
-     * @param smsLoginBody 登录信息
-     * @return 结果
-     */
-    @SaIgnore
-    @PostMapping("/smsLogin")
-    public R<Map<String, Object>> smsLogin(@Validated @RequestBody SmsLoginBody smsLoginBody) {
-        Map<String, Object> ajax = new HashMap<>();
-        // 生成令牌
-        String token = loginService.smsLogin(smsLoginBody.getPhonenumber(), smsLoginBody.getSmsCode());
-        ajax.put(Constants.TOKEN, token);
-        return R.ok(ajax);
-    }
-
-    /**
-     * 小程序登录(示例)
-     *
-     * @param xcxCode 小程序code
-     * @return 结果
-     */
-    @SaIgnore
-    @PostMapping("/xcxLogin")
-    public R<Map<String, Object>> xcxLogin(@NotBlank(message = "{xcx.code.not.blank}") String xcxCode) {
-        Map<String, Object> ajax = new HashMap<>();
-        // 生成令牌
-        String token = loginService.xcxLogin(xcxCode);
         ajax.put(Constants.TOKEN, token);
         return R.ok(ajax);
     }
