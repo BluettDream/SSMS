@@ -1,5 +1,6 @@
 package org.bluett.ssms.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.bluett.ssms.domain.ScoreCourseUser;
 import org.bluett.ssms.domain.vo.ScoreCourseUserVo;
@@ -13,6 +14,7 @@ import java.util.List;
  * @author bluett
  * @date 2023-05-09
  */
+@Mapper
 public interface ScoreCourseUserMapper extends BaseMapperPlus<ScoreCourseUserMapper, ScoreCourseUser, ScoreCourseUserVo> {
 
     List<Long> selectScoreIdsByCourseIds(@Param("courseIds") List<Long> courseIdList);

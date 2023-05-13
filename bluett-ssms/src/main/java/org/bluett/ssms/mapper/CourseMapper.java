@@ -1,16 +1,13 @@
 package org.bluett.ssms.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.bluett.common.annotation.DataColumn;
-import org.bluett.common.annotation.DataPermission;
-import org.bluett.common.core.domain.entity.SysUser;
+import org.bluett.common.core.mapper.BaseMapperPlus;
 import org.bluett.ssms.domain.Course;
 import org.bluett.ssms.domain.vo.CourseVo;
-import org.bluett.common.core.mapper.BaseMapperPlus;
 
 import java.util.List;
 
@@ -20,6 +17,7 @@ import java.util.List;
  * @author bluett
  * @date 2023-05-08
  */
+@Mapper
 public interface CourseMapper extends BaseMapperPlus<CourseMapper, Course, CourseVo> {
 
     /**
