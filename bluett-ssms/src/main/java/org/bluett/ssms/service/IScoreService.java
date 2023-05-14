@@ -3,6 +3,7 @@ package org.bluett.ssms.service;
 import org.bluett.common.core.domain.PageQuery;
 import org.bluett.common.core.page.TableDataInfo;
 import org.bluett.ssms.domain.bo.ScoreBo;
+import org.bluett.ssms.domain.vo.ScoreDashBoardVo;
 import org.bluett.ssms.domain.vo.ScoreVo;
 
 import java.util.Collection;
@@ -50,4 +51,6 @@ public interface IScoreService {
      * 检查分数是否唯一
      */
     Boolean checkScoreUnique(ScoreBo bo);
+
+    ScoreDashBoardVo queryDashBoardInfo(ScoreBo bo);
 }

@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
 
 /**
  * name: MengHao Tian
@@ -18,25 +18,25 @@ public class ScoreDashBoardVo implements Serializable {
     /**
      * 最高分数
      */
-    private Double maxScore;
+    private Double scoreMax;
 
     /**
      * 最低分数
      */
-    private Double minScore;
+    private Double scoreMin;
 
     /**
      * 平均分数
      */
-    private Double avgScore;
+    private Double scoreAvg;
 
     /**
      * 全部课程
      */
-    private Integer allCourse;
+    private Long courseCount;
 
     /**
-     * 分数详情
+     * 课程分数详情
      */
-    private List<ScoreVo> scoreVoList;
+    private Map<String,Double> scoreData;
 }

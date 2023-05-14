@@ -17,6 +17,7 @@ import org.bluett.common.enums.BusinessType;
 import org.bluett.common.excel.ExcelResult;
 import org.bluett.common.utils.poi.ExcelUtil;
 import org.bluett.ssms.domain.bo.ScoreBo;
+import org.bluett.ssms.domain.vo.ScoreDashBoardVo;
 import org.bluett.ssms.domain.vo.ScoreImportVo;
 import org.bluett.ssms.domain.vo.ScoreVo;
 import org.bluett.ssms.listener.ScoreImportListener;
@@ -57,6 +58,16 @@ public class ScoreController extends BaseController {
     public TableDataInfo<ScoreVo> list(ScoreBo bo, PageQuery pageQuery) {
         checkDataPermission(bo);
         return iScoreService.queryPageList(bo, pageQuery);
+    }
+
+    /**
+     * 查询成绩看板
+     */
+    @SaCheckPermission("ssms:score:view")
+    @GetMapping(value = "/panelInfo")
+    public R<ScoreDashBoardVo> panelInfo(ScoreBo bo) {
+        checkDataPermission(bo);
+        return R.ok(iScoreService.queryDashBoardInfo(bo));
     }
 
     /**

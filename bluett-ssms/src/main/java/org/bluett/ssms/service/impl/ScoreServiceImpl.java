@@ -20,6 +20,7 @@ import org.bluett.ssms.domain.ScoreCourseUser;
 import org.bluett.ssms.domain.bo.ScoreBo;
 import org.bluett.ssms.domain.vo.CourseVo;
 import org.bluett.ssms.domain.vo.ScoreCourseUserVo;
+import org.bluett.ssms.domain.vo.ScoreDashBoardVo;
 import org.bluett.ssms.domain.vo.ScoreVo;
 import org.bluett.ssms.mapper.CourseMapper;
 import org.bluett.ssms.mapper.ScoreCourseUserMapper;
@@ -29,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,21 +74,6 @@ public class ScoreServiceImpl implements IScoreService {
     public List<ScoreVo> queryList(ScoreBo bo) {
         QueryWrapper<ScoreVo> qw = buildQueryWrapper(bo);
         return baseMapper.selectScoreVoList(qw);
-    }
-
-    private QueryWrapper<ScoreVo> buildQueryWrapper(ScoreBo bo) {
-        Map<String, Object> params = bo.getParams();
-        QueryWrapper<ScoreVo> qw = Wrappers.query();
-        qw.eq("s.del_flag", "0");
-        qw.eq(params.get("studentId") != null,"u.user_id", params.get("studentId"));//学生数据权限
-        qw.in(params.get("courseIdList") != null,"scu.course_id", (List<Long>) params.get("courseIdList"));//教师数据权限
-        qw.eq(StringUtils.isNotBlank(bo.getUserName()),"u.user_name", bo.getUserName());
-        qw.eq(bo.getScore() != null,"s.score", bo.getScore());
-        qw.ge(bo.getStartTime() != null,"c.start_time", bo.getStartTime());
-        qw.le(bo.getFinishTime() != null,"c.finish_time", bo.getFinishTime());
-        qw.like(StringUtils.isNotBlank(bo.getCourseName()),"c.course_name", bo.getCourseName());
-        qw.like(StringUtils.isNotBlank(bo.getNickName()),"u.nick_name", bo.getNickName());
-        return qw;
     }
 
     /**
@@ -160,5 +147,33 @@ public class ScoreServiceImpl implements IScoreService {
             .eq(StringUtils.isNotBlank(bo.getUserName()), "user_name", bo.getUserName())
             .eq(bo.getCourseId() != null, "course_id", bo.getCourseId()));
         return !exists;
+    }
+
+    @Override
+    public ScoreDashBoardVo queryDashBoardInfo(ScoreBo bo) {
+        ScoreDashBoardVo scoreDashBoardVo = baseMapper.selectScorePanelInfo(buildQueryWrapper(bo));
+        bo.getParams().put("courseId", true);
+        List<Map<String, Object>> mapList = baseMapper.selectScoreGroupByCourse(buildQueryWrapper(bo));
+        Map<String,Double> scoreData = new HashMap<>();
+        mapList.forEach(map -> scoreData.put(map.get("courseName").toString(), Double.valueOf(map.get("score").toString())));
+        scoreDashBoardVo.setScoreData(scoreData);
+        return scoreDashBoardVo;
+    }
+
+    private QueryWrapper<ScoreVo> buildQueryWrapper(ScoreBo bo) {
+        Map<String, Object> params = bo.getParams();
+        QueryWrapper<ScoreVo> qw = Wrappers.query();
+        qw.eq("s.del_flag", "0");
+        qw.eq("c.del_flag", "0");
+        qw.eq(params.get("studentId") != null,"u.user_id", params.get("studentId"));//学生数据权限
+        qw.in(params.get("courseIdList") != null,"scu.course_id", (List<Long>) params.get("courseIdList"));//教师数据权限
+        qw.eq(StringUtils.isNotBlank(bo.getUserName()),"u.user_name", bo.getUserName());
+        qw.eq(bo.getScore() != null,"s.score", bo.getScore());
+        qw.ge(bo.getStartTime() != null,"c.start_time", bo.getStartTime());
+        qw.le(bo.getFinishTime() != null,"c.finish_time", bo.getFinishTime());
+        qw.like(StringUtils.isNotBlank(bo.getCourseName()),"c.course_name", bo.getCourseName());
+        qw.like(StringUtils.isNotBlank(bo.getNickName()),"u.nick_name", bo.getNickName());
+        qw.groupBy(params.get("courseId") != null, "scu.course_id");
+        return qw;
     }
 }
