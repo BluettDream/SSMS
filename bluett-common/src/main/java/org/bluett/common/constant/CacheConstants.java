@@ -3,7 +3,7 @@ package org.bluett.common.constant;
 /**
  * 缓存的key 常量
  *
- * @author ruoyi
+ * @author bluett
  */
 public interface CacheConstants {
 

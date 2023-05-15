@@ -3,7 +3,7 @@ package org.bluett.common.enums;
 /**
  * 业务操作类型
  *
- * @author ruoyi
+ * @author bluett
  */
 public enum BusinessType {
     /**

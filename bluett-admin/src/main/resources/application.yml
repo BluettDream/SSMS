@@ -1,5 +1,5 @@
 # 项目相关配置
-ruoyi:
+bluett:
   # 名称
   name: SSMS
   # 版本
@@ -18,7 +18,7 @@ captcha:
   # 验证码类型 math 数组计算 char 字符验证
   type: MATH
   # line 线段干扰 circle 圆圈干扰 shear 扭曲干扰
-  category: CIRCLE
+  category: line
   # 数字验证码位数
   numberLength: 1
   # 字符验证码长度
@@ -67,7 +67,7 @@ user:
 # Spring配置
 spring:
   application:
-    name: ${ruoyi.name}
+    name: ${bluett.name}
   # 资源信息
   messages:
     # 国际化资源文件路径
@@ -203,16 +203,16 @@ mybatis-encryptor:
 swagger:
   info:
     # 标题
-    title: '标题：${ruoyi.name}后台管理系统_接口文档'
+    title: '标题：${bluett.name}后台管理系统_接口文档'
     # 描述
-    description: '描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...'
+    description: '描述：XX学校的学生成绩管理系统,具体包括XXX,XXX模块...'
     # 版本
     version: '版本号: ${ssms.version}'
     # 作者信息
     contact:
-      name: Lion Li
-      email: crazylionli@163.com
-      url: https://gitee.com/dromara/RuoYi-Vue-Plus
+      name: Bluett Dream
+      email: tmh.1@qq.com
+      url: https://github.com/BluettDream
   components:
     # 鉴权方式配置
     security-schemes:

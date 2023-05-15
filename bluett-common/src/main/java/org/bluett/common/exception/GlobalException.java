@@ -3,7 +3,7 @@ package org.bluett.common.exception;
 /**
  * 全局异常
  *
- * @author ruoyi
+ * @author bluett
  */
 public class GlobalException extends RuntimeException {
 

@@ -1,5 +1,5 @@
 --- # 临时文件存储位置 避免临时文件被系统清理报错
-spring.servlet.multipart.location: /ruoyi/server/temp
+spring.servlet.multipart.location: /bluett/server/temp
 
 --- # 数据源配置
 spring:
@@ -95,7 +95,7 @@ redisson:
   # 单节点配置
   singleServerConfig:
     # 客户端名称
-    clientName: ${ruoyi.name}
+    clientName: ${bluett.name}
     # 最小空闲连接数
     connectionMinimumIdleSize: 32
     # 连接池大小

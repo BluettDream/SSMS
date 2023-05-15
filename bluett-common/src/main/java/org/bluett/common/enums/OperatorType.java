@@ -3,7 +3,7 @@ package org.bluett.common.enums;
 /**
  * 操作人类别
  *
- * @author ruoyi
+ * @author bluett
  */
 public enum OperatorType {
     /**

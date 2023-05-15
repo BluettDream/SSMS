@@ -3,7 +3,7 @@ package org.bluett.common.exception.user;
 /**
  * 用户错误最大次数异常类
  *
- * @author ruoyi
+ * @author bluett
  */
 public class UserPasswordRetryLimitExceedException extends UserException {
 

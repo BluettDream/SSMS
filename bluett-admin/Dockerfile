@@ -1,12 +1,12 @@
 FROM anapsix/alpine-java:8_server-jre_unlimited
 
-MAINTAINER Lion Li
+MAINTAINER Bluett Dream
 
-RUN mkdir -p /ruoyi/server/logs \
-    /ruoyi/server/temp \
-    /ruoyi/skywalking/agent
+RUN mkdir -p /bluett/server/logs \
+    /bluett/server/temp \
+    /bluett/skywalking/agent
 
-WORKDIR /ruoyi/server
+WORKDIR /bluett/server
 
 ENV SERVER_PORT=8080
 
@@ -18,6 +18,6 @@ ENTRYPOINT ["java", \
             "-Djava.security.egd=file:/dev/./urandom", \
             "-Dserver.port=${SERVER_PORT}", \
             # 应用名称 如果想区分集群节点监控 改成不同的名称即可
-#            "-Dskywalking.agent.service_name=ruoyi-server", \
-#            "-javaagent:/ruoyi/skywalking/agent/skywalking-agent.jar", \
+#            "-Dskywalking.agent.service_name=bluett-server", \
+#            "-javaagent:/bluett/skywalking/agent/skywalking-agent.jar", \
             "-jar", "app.jar"]

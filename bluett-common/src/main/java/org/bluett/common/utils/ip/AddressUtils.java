@@ -4,7 +4,7 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.http.HtmlUtil;
 import cn.hutool.http.HttpUtil;
-import org.bluett.common.config.RuoYiConfig;
+import org.bluett.common.config.BluettConfig;
 import org.bluett.common.constant.Constants;
 import org.bluett.common.utils.JsonUtils;
 import org.bluett.common.utils.StringUtils;
@@ -37,7 +37,7 @@ public class AddressUtils {
         if (NetUtil.isInnerIP(ip)) {
             return "内网IP";
         }
-        if (RuoYiConfig.isAddressEnabled()) {
+        if (BluettConfig.isAddressEnabled()) {
             try {
                 String rspStr = HttpUtil.createGet(IP_URL)
                     .body("ip=" + ip + "&json=true", Constants.GBK)

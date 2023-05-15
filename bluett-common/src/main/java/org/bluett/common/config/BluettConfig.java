@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "ruoyi")
-public class RuoYiConfig {
+@ConfigurationProperties(prefix = "bluett")
+public class BluettConfig {
 
     /**
      * 项目名称
@@ -48,7 +48,7 @@ public class RuoYiConfig {
     private static boolean addressEnabled;
 
     public void setAddressEnabled(boolean addressEnabled) {
-        RuoYiConfig.addressEnabled = addressEnabled;
+        BluettConfig.addressEnabled = addressEnabled;
     }
 
 }

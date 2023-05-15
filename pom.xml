@@ -9,7 +9,6 @@
     <version>4.6.0</version>
 
     <name>SSMS</name>
-    <url>https://gitee.com/dromara/RuoYi-Vue-Plus</url>
     <description>SSMS学生成绩管理系统</description>
 
     <properties>

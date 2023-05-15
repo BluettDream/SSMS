@@ -3,7 +3,7 @@ package org.bluett.common.enums;
 /**
  * 限流类型
  *
- * @author ruoyi
+ * @author bluett
  */
 
 public enum LimitType {

@@ -1,6 +1,6 @@
 package org.bluett.system.runner;
 
-import org.bluett.common.config.RuoYiConfig;
+import org.bluett.common.config.BluettConfig;
 import org.bluett.system.service.ISysConfigService;
 import org.bluett.system.service.ISysDictTypeService;
 import org.bluett.system.service.ISysOssConfigService;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SystemApplicationRunner implements ApplicationRunner {
 
-    private final RuoYiConfig ruoyiConfig;
+    private final BluettConfig bluettConfig;
     private final ISysConfigService configService;
     private final ISysDictTypeService dictTypeService;
     private final ISysOssConfigService ossConfigService;
@@ -29,7 +29,7 @@ public class SystemApplicationRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         ossConfigService.init();
         log.info("初始化OSS配置成功");
-        if (ruoyiConfig.isCacheLazy()) {
+        if (bluettConfig.isCacheLazy()) {
             return;
         }
         configService.loadingConfigCache();
