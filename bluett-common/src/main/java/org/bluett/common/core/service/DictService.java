@@ -3,7 +3,7 @@ package org.bluett.common.core.service;
 /**
  * 通用 字典服务
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface DictService {
 

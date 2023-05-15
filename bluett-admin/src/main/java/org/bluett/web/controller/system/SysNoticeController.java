@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * 公告 信息操作处理
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Validated
 @RequiredArgsConstructor

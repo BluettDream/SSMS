@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 单元测试案例
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @SpringBootTest // 此注解只能在 springboot 主包下使用 需包含 main 方法与 yml 配置文件
 @DisplayName("单元测试案例")

@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * minio策略配置
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Getter
 @AllArgsConstructor

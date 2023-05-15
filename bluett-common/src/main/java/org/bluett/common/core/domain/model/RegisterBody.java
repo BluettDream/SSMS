@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 /**
  * 用户注册对象
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

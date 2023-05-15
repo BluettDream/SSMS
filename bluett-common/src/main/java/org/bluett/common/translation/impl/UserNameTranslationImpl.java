@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * 用户名翻译实现
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Component
 @AllArgsConstructor

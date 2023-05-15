@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 首页
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @RequiredArgsConstructor
 @RestController

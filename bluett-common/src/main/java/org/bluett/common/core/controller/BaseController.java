@@ -8,7 +8,7 @@ import org.bluett.common.utils.StringUtils;
 /**
  * web层通用数据处理
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public class BaseController {
 

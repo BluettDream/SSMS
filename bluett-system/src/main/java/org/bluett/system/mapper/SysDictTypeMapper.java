@@ -6,7 +6,7 @@ import org.bluett.common.core.mapper.BaseMapperPlus;
 /**
  * 字典表 数据层
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface SysDictTypeMapper extends BaseMapperPlus<SysDictTypeMapper, SysDictType, SysDictType> {
 

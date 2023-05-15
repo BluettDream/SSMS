@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 /**
  * 角色表 sys_role
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 
 @Data

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * 验证码 配置属性
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Data
 @Component

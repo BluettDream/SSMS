@@ -3,7 +3,7 @@ package org.bluett.system.service;
 /**
  * 通用 数据权限 服务
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface ISysDataScopeService {
 

@@ -13,7 +13,7 @@ import java.util.Properties;
 /**
  * 校验框架配置类
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Configuration
 public class ValidatorConfig {

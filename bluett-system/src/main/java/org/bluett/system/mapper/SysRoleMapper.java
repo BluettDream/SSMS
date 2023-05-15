@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 角色表 数据层
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface SysRoleMapper extends BaseMapperPlus<SysRoleMapper, SysRole, SysRole> {
 

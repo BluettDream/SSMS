@@ -9,7 +9,7 @@ import org.bluett.common.utils.StringUtils;
 /**
  * 无符号计算生成器
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public class UnsignedMathGenerator implements CodeGenerator {
 

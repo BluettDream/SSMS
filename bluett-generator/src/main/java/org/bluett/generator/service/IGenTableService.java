@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 业务 服务层
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface IGenTableService {
 

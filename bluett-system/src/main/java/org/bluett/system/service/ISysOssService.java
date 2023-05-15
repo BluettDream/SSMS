@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 文件上传 服务层
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface ISysOssService {
 

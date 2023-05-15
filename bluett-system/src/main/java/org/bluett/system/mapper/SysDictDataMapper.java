@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 字典表 数据层
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface SysDictDataMapper extends BaseMapperPlus<SysDictDataMapper, SysDictData, SysDictData> {
 

@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
 /**
  * 异步配置
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @EnableAsync(proxyTargetClass = true)
 @Configuration

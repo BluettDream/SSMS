@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * 列值重复合并策略
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @AllArgsConstructor
 @Slf4j

@@ -3,7 +3,7 @@ package org.bluett.common.constant;
 /**
  * 翻译常量
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface TransConstant {
 

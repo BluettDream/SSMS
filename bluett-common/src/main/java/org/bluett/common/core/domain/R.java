@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 响应信息主体
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Data
 @NoArgsConstructor

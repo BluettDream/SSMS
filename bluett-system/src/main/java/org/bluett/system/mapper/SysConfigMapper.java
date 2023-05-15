@@ -6,7 +6,7 @@ import org.bluett.system.domain.SysConfig;
 /**
  * 参数配置 数据层
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface SysConfigMapper extends BaseMapperPlus<SysConfigMapper, SysConfig, SysConfig> {
 

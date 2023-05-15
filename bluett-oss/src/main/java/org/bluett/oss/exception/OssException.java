@@ -3,7 +3,7 @@ package org.bluett.oss.exception;
 /**
  * OSS异常类
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public class OssException extends RuntimeException {
 

@@ -3,7 +3,7 @@ package org.bluett.common.core.service;
 /**
  * 通用 部门服务
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface DeptService {
 

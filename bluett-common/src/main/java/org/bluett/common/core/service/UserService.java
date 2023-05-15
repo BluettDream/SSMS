@@ -5,7 +5,7 @@ import org.bluett.common.core.domain.entity.SysUser;
 /**
  * 通用 用户服务
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface UserService {
 

@@ -32,7 +32,7 @@ import java.util.Date;
  * S3 存储协议 所有兼容S3协议的云厂商均支持
  * 阿里云 腾讯云 七牛云 minio
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public class OssClient {
 

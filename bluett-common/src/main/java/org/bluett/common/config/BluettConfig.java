@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * 读取项目相关配置
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 
 @Data

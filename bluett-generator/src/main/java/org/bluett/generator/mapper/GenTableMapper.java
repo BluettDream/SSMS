@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 业务 数据层
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @InterceptorIgnore(dataPermission = "true")
 public interface GenTableMapper extends BaseMapperPlus<GenTableMapper, GenTable, GenTable> {

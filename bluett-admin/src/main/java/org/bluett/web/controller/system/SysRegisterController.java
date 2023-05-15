@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 注册验证
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Validated
 @RequiredArgsConstructor

@@ -3,7 +3,7 @@ package org.bluett.common.core.validate;
 /**
  * 校验分组 query
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface QueryGroup {
 }

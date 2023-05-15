@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 /**
  * 翻译类型注解 (标注到{@link TranslationInterface} 的实现类)
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)

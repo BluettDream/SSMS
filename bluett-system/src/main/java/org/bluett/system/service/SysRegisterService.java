@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 注册校验方法
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @RequiredArgsConstructor
 @Service

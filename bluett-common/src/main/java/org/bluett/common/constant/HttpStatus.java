@@ -3,7 +3,7 @@ package org.bluett.common.constant;
 /**
  * 返回状态码
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 public interface HttpStatus {
     /**

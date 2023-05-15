@@ -13,7 +13,7 @@ import java.io.Serializable;
 /**
  * 用户对象导入VO
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 
 @Data

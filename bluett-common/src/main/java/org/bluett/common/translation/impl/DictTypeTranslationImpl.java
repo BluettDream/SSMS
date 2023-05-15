@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * 字典翻译实现
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Component
 @AllArgsConstructor

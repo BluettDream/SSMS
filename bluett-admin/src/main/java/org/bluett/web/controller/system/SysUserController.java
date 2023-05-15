@@ -42,7 +42,7 @@ import java.util.Map;
 /**
  * 用户信息
  *
- * @author Lion Li
+ * @author Bluett Dream
  */
 @Validated
 @RequiredArgsConstructor
