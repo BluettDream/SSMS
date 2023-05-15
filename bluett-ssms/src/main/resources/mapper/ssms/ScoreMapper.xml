@@ -45,7 +45,7 @@
     </select>
 
     <sql id="selectScorePanel">
-        select count(c.course_id) as course_count, avg(s.score) as score_avg, max(s.score) as score_max, min(s.score) as score_min
+        select count(distinct c.course_id) as course_count, avg(s.score) as score_avg, max(s.score) as score_max, min(s.score) as score_min
         from sys_user u
                  inner join ssms_score_course_user scu on u.user_name = scu.user_name
                  inner join ssms_course c on c.course_id = scu.course_id
