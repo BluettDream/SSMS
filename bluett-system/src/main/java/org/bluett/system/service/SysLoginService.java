@@ -102,7 +102,7 @@ public class SysLoginService {
         if(userId == -1L) {
             throw new UserException("人脸校验失败,请在环境良好的情况下重试");
         }
-        SysUser user = userMapper.selectById(userId);
+        SysUser user = loadUserByUsername(userMapper.selectById(userId).getUserName());
         checkLogin(LoginType.FACE, user.getUserName(), () -> false);
         // 此处可根据登录用户的数据不同 自行创建 loginUser
         LoginUser loginUser = buildLoginUser(user);
