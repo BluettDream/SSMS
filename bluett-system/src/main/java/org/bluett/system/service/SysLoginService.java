@@ -102,13 +102,16 @@ public class SysLoginService {
         if(userId == -1L) {
             throw new UserException("人脸校验失败,请在环境良好的情况下重试");
         }
-        SysUser user = loadUserByUsername(userMapper.selectById(userId).getUserName());
+        SysUser user = userMapper.selectUserById(userId);
+        if (ObjectUtil.isNull(user)) {
+            log.info("登录用户不存在.");
+            throw new UserException("user.not.exists");
+        }
         checkLogin(LoginType.FACE, user.getUserName(), () -> false);
         // 此处可根据登录用户的数据不同 自行创建 loginUser
         LoginUser loginUser = buildLoginUser(user);
         // 生成token
         LoginHelper.loginByDevice(loginUser, DeviceType.PC);
-
         recordLogininfor(user.getUserName(), Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success"));
         recordLoginInfo(user.getUserId(), user.getUserName());
         return StpUtil.getTokenValue();
